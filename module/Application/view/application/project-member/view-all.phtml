@@ -1,0 +1,207 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css")
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/css/jquery.dataTables.yadcf.css')
+        ->appendStylesheet($this->basePath() . '/css/projectMember/view-all.css')
+?>
+
+<?php $this->headScript()
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.dataTables.yadcf.js',   'text/javascript')
+    ?>
+<?php             
+    $pending = $this->layout()->pending;
+    $removed = $this->layout()->removed;
+    $current = $this->layout()->current;
+    $projectId = $this->layout()->projectId;
+    $isResearchers = $this->layout()->isResearchers;
+    $title = $isResearchers ? "Researcher" : "Participant";
+    
+    $isResearchers ? $this->headScript()->appendFile($this->basePath() . '/js/projectMember/viewAllResearchers.js',    'text/javascript') :
+        $this->headScript()->appendFile($this->basePath() . '/js/projectMember/viewAll.js',    'text/javascript');
+?>
+<?php 
+      $project = $this->layout()->project;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$project->id)); ?>">
+                <?php echo $project->name; ?></a> > <span id="current">Manage <?php echo $title . 's';?></span>    
+    </p>    
+</div>
+<h1>Manage <?php echo $title . 's'; ?></h1>
+<div id="options">
+    <a href="
+        <?php echo $this->url('projectMember', array('controller'=>'projectMember','action'=>'add', 'id'=>$projectId))."?researcher=$isResearchers"; ?>">
+        Add New <?php echo $title ?></a><br/>
+</div><br>
+
+<h2>Current Project <?php echo $title ?>s</h2>
+
+<div id="msg"></div>
+
+<div id="meridParticipants">    
+    <table cellpadding="0" cellspacing="0" border="0" id="projectParticipants">
+        <thead>
+            <tr>
+                <th>Remove</th>
+                <?php
+                    if($isResearchers){
+                        echo "<th>Display Name</th>
+                              <th>email</th>";
+                    }else{
+                        echo "<th>Edit</th>
+                            <th>First Name </th>
+                            <th>Last Name </th>
+                            <th>Display Name</th>
+                            <th>Email</th>
+                            <th>Instrument</th>
+                            <th>Player Number</th>
+                            <th>Desk</th>
+                            <th>Playing Part</th>";
+                    }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($current as $member)
+                    {
+                        
+                        if($isResearchers){
+                            echo "<tr id='$member->id'>
+                                    <td class='changers'><a href='#' id='$member->id' class='remove'>Remove</a></td>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                </tr>";
+                        }else{
+                            echo "<tr id='$member->id'>
+                                    <td class='changers'><a href='#' id='$member->id' class='remove'>Remove</a></td>
+                                    <td class='changers'><a href='#' id='$member->id' class='editpts'>Edit</a></td>
+                                    <td id='$member->id' class='firstName'>$member->firstName</td>
+                                    <td id='$member->id' class='lastName'>$member->lastName</td>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                    <td id='$member->id' class='instrument'>$member->instrument</td>
+                                    <td id='$member->id' class='playerNumber'>$member->playerNumber</td>
+                                    <td id='$member->id' class='desk'>$member->desk</td>
+                                    <td id='$member->id' class='playingPart'>$member->playingPart</td>
+                                </tr>";
+                        }
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="id" class="hidden" type="hidden" value=""/>
+    <div id="confirmRemove"></div> 
+</div> 
+<br/>
+
+<h2>Pending <?php echo $title ?>s</h2>
+
+<table cellpadding="0" cellspacing="0" border="0" id="pendingParticipants">
+        <thead>
+            <tr>
+                
+                <?php
+                    if($isResearchers){
+                        echo "<th>Display Name</th>
+                              <th>email</th>";
+                    }else{
+                        echo 
+                            "<th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Display Name</th>
+                            <th>Email</th>
+                            <th>Instrument</th>
+                            <th>Player Number</th>
+                            <th>Desk</th>
+                            <th>Playing Part</th>";
+                    }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($pending as $member)
+                    {
+                        
+                        if($isResearchers){
+                            echo "<tr id='$member->id'>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                </tr>";
+                        }else{
+                            echo "<tr id='$member->id'>
+                                    <td id='$member->id' class='firstName'>$member->firstName</td>
+                                    <td id='$member->id' class='lastName'>$member->lastName</td>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                    <td id='$member->id' class='instrument'>$member->instrument</td>
+                                    <td id='$member->id' class='playerNumber'>$member->playerNumber</td>
+                                    <td id='$member->id' class='desk'>$member->desk</td>
+                                    <td id='$member->id' class='playingPart'>$member->playingPart</td>
+                                </tr>";
+                        }
+                    }
+                    ?>
+        </tbody>
+</table><br/><br/>
+
+<h2>Removed <?php echo $title ?>s</h2>
+
+<form id="inactiveParticipants" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="removedParticipants">
+        <thead>
+            <tr>
+                <th>Reinstate</th>
+                <?php
+                    if($isResearchers){
+                        echo "<th>Display Name</th>
+                             <th>email</th>";
+                    }else{
+                        echo"<th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Display Name</th>
+                            <th>Email</th>
+                            <th>Instrument</th>
+                            <th>Player Number</th>
+                            <th>Desk</th>
+                            <th>Playing Part</th>";
+                    }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($removed as $member)
+                    {
+                        if($isResearchers){
+                            echo "<tr id='$member->id'>
+                                    <td class='changers'><a href='#' id='$member->id' class='reinstate'>Reinstate</a></td>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                </tr>";
+                        }else{
+                            echo "<tr id='$member->id'>
+                                    <td class='changers'><a href='#' id='$member->id' class='reinstate'>Reinstate</a></td>
+                                    <td id='$member->id' class='firstName'>$member->firstName</td>
+                                    <td id='$member->id' class='lastName'>$member->lastName</td>
+                                    <td id='$member->id' class='userName'>$member->userName</td>
+                                    <td id='$member->id' class='email'>".$member->user->email."</td>
+                                    <td id='$member->id' class='instrument'>$member->instrument</td>
+                                    <td id='$member->id' class='playerNumber'>$member->playerNumber</td>
+                                    <td id='$member->id' class='desk'>$member->desk</td>
+                                    <td id='$member->id' class='playingPart'>$member->playingPart</td>
+                                </tr>";
+                        }
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="id" class="hidden" type="hidden" value=""/>
+    <div id="confirmReinstate"></div> 
+</form><br/> 

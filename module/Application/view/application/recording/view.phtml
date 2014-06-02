@@ -1,0 +1,72 @@
+<?php  $this->headLink()
+        ->appendStylesheet($this->basePath() . '/css/recording/view.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/recording/view.js',    'text/javascript')
+?>
+
+<?php 
+    $recording =$this->layout()->recording;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('recording',
+                array('controller'=>'recording','action'=>'viewAll'));?>">Manage Recordings</a> > 
+                <span id="current"><?php echo $recording->title; ?></span>
+    </p>    
+</div>
+<div id="generalInfo">
+    <h2 id="title"><?php echo $recording->title ?></h2>
+    <ul>
+        <li id="location"><?php echo $recording->location ?></li>
+        <li id="recordingTime"><?php echo $recording->recordingTime->format('m/d/Y') ?></li>
+        <li id="projects">
+            <ul>
+                <?php
+                    if(count($recording->projects) < 1){
+                        echo "Not on any projects";
+                    }else{
+                        foreach($recording->projects as $project){
+                            echo "<li>".$project->name."</li>";
+                        }
+                    }
+                ?>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="pieces">
+    <legend>Pieces</legend>
+    <?php 
+        foreach($recording->pieces as $piece){
+    ?>
+            <ul>
+                <li><h4 id="title"><?php echo $piece->title ?></h4></li>
+                <li id="composer"><?php echo $piece->composer ?></li>
+                <li id="genre"><?php echo $piece->genre ?></li>
+                <li id="arranger"><?php echo $piece->arranger ?></li>            
+            </ul>
+    <?php
+        }
+    ?>
+</div>
+
+<div id="videos">
+    <legend>Videos</legend>
+    <?php 
+        foreach($recording->videos as $video){
+    ?>
+        <ul>
+            <li><h4 id="name"><?php echo $video->name ?></h4></li>
+            <li id="link"><a href="<?php echo $video->link ?>"><?php echo $video->link ?></a></li>
+            <li id="startTime"><?php echo gmdate("H:i:s", $video->startTime) ?></li>
+            <li id="endTime"><?php echo gmdate("H:i:s", $video->endTime) ?></li>    
+            <li id="offsetTime"><?php echo $video->offsetTime ?></li>   
+            <li id="position"><?php echo $video->position ?></li>
+        </ul>
+    <?php
+        }
+    ?>
+</div>
+

@@ -1,0 +1,19 @@
+.info
+{
+    font-weight: bold;
+    font-size: 12pt;
+}
+#name{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+#baileypic
+{
+    width: 180px;
+    height: 250px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 300px;
+}
+

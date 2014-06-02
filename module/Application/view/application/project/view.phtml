@@ -1,0 +1,164 @@
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                ->appendStylesheet($this->basePath() . '/css/project/view.css')
+?>
+<?php 
+      $project = $this->layout()->project;
+?>
+<div id="nav">
+    <p>
+        > <span id="current"><?php echo $project->name; ?></span>    
+    </p>    
+</div>
+<?php $isResearcher = $this->layout()->isResearcher; 
+      $user = $this->layout()->currentUser;
+?>
+<h1>Project View</h1>
+
+<br/>
+<?php if($project->status == "active") { ?>
+<div id="mainContent">
+    <div id="side">
+        
+        <div id="home">
+            <ul>
+                <span><p>Home</p></span>
+                <?php if($isResearcher){ ?>
+                <li><a class="pop" href="<?php echo $this->url('project', array('controller'=>'project','action'=>'edit','id' => $this->layout()->projectId)); ?>">Edit project information</a></li>
+                <li><a class="pop" href="<?php echo $this->url('projectMember', 
+                array('controller'=>'projectMember','action'=>'viewAll', 'id' => $this->layout()->projectId)); ?>?researchers=0">
+                        Manage participants</a></li>	
+                <li><a class="pop" href="<?php echo $this->url('projectMember', 
+                array('controller'=>'projectMember','action'=>'viewAll', 'id' => $this->layout()->projectId)); ?>?researchers=1">
+                        Manage Researchers</a></li>	
+                <li><a class="pop" href="<?php echo $this->url('survey', 
+                array('controller'=>'survey','action'=>'add', 'id' => $this->layout()->projectId)); ?>">Add survey</a></li>
+                <?php }else{ ?>
+                <li><a class="pop" href="<?php echo $this->url('project', array('controller'=>'project','action'=>'invite','id' => $this->layout()->projectId)); ?>">View project information</a></li>
+                <?php }?>
+            </ul>
+        </div>
+        
+    	<ul>
+        	<div id="svs">
+        	<span><p>Surveys</p></span>
+                <?php 
+                    $surveys = $this->layout()->surveys;
+                    $projectId = $this->layout()->projectId;
+                    foreach($surveys as $survey){ 
+	 	?>
+  		<li><a class="survgen" href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$survey->id));?>"><?php echo $survey->title; ?></a>
+                <?php 
+                if($user->isResearcher){
+                    echo "<a class='survedit' href='".$this->url('survey', array('controller'=>'survey','action'=>'edit', 'id' => $survey->id))."'>Edit</a>";
+                }   
+                ?>
+                </li>       
+                <?php
+                     }
+                ?>
+        	</div>
+        </ul>
+	</div>
+    
+	<div id="newsfeed">
+    	<span><p>Newsfeed</p></span>
+        <p>
+            <?php 
+            $surveyInvites =$this->layout()->surveyInvites;
+            if(count($surveyInvites)>0){ ?>
+                       <br/> <h4> TO-DO Surveys </h4>
+                  <?php  }
+            foreach($surveyInvites as $survey){ 
+            ?>
+                <b> <?php echo $survey->title; ?>   </b><a href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$survey->id));?>">View Survey</a>
+                <br/>
+        <?php
+            } 
+            ?>
+            
+           <?php 
+            $editedSurveys =$this->layout()->editedSurveys;
+            if(count($editedSurveys)>0){ ?>
+                       <br/> <h4> Edited Surveys </h4>
+                  <?php  }
+            foreach($editedSurveys as $survey){ 
+            ?>
+                <a href="<?php echo $this->url('project', array('controller'=>'project','action'=>'view', 'id'=>$survey->project->id));?>">
+                    <?php echo $survey->project->name; ?></a> has a new survey available:<b> <?php echo $survey->title; ?>  </b>
+                    <a href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$survey->id));?>">View Survey</a>
+                <br/>
+        <?php
+            } 
+            ?>
+          
+                
+            
+            <?php if($isResearcher){ ?>
+            <?php 
+            
+            $ProjectAccepts =$this->layout()->ProjectAccepts;
+            if(count($ProjectAccepts)>0){ ?>
+                <br/> <h4> Project Accepts </h4>
+          <?php  }
+            foreach($ProjectAccepts as $participant){ 
+                $participant = $participant->toArray();
+                if(array_key_exists('userName',$participant)){ ?>
+                <?php echo $participant['userName']; ?> (participant)
+                <?php }else{ ?>
+                <?php echo $participant['user']->name; ?> (researcher)
+        <?php
+            }  
+        ?>
+         <br/>
+         <?php
+            }  
+        ?>
+        <?php 
+            
+            $ProjectRejects =$this->layout()->ProjectRejects;
+            if(count($ProjectRejects)>0){ ?>
+                <br/> <h4> Project Rejects </h4>
+          <?php  }
+            foreach($ProjectRejects as $participant){ 
+                $participant = $participant->toArray();
+                if(array_key_exists('userName',$participant)){ ?>
+                <?php echo $participant['userName']; ?> (participant)
+                <?php }else{ ?>
+                <?php echo $participant['user']->name; ?> (researcher)
+        <?php
+            }  
+        ?>
+         <br/>
+         <?php
+            }  
+        ?>
+
+         <?php 
+            $surveyWithNewRComments =$this->layout()->surveyWithNewRComments;
+            if(count($surveyWithNewRComments)>0){ ?>
+                        <br/><h4> Surveys with new researcher comments</h4>
+                  <?php  }
+           foreach($surveyWithNewRComments as $id => $value){   ?>
+              <b><?php echo $value; ?> </b>  <a style="margin-left:15px" href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$id));?>">View Survey</a>
+                <!--<br/> The survey: <a href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$id));?>"><?php echo $value; ?></a> has new researcher comments.-->
+               <br/>  <?php } ?>
+         <?php } ?>
+                
+ 
+          <?php 
+            $surveysWithNewPComments =$this->layout()->surveysWithNewPComments;
+            if(count($surveysWithNewPComments)>0){ ?>
+                        <br/><h4> Surveys with new participant comments</h4>
+                  <?php  }
+            foreach($surveysWithNewPComments as $id => $value){   ?>
+               <b><?php echo $value; ?> </b>  <a style="margin-left:20px" href="<?php echo $this->url('survey', array('controller'=>'survey','action'=>'view', 'id'=>$id));?>">View Survey</a>
+               <br/> <?php } ?>
+         
+                
+        </p>
+	</div>
+    <br/>
+</div>
+<?php }else {?>
+<div> <h1>This project has been deleted.</h1></div>
+<?php } ?>

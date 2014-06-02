@@ -1,0 +1,26 @@
+form label.error, label.error {
+    color: red;
+    font-style: italic;
+    font-weight: lighter;
+    padding: 10px;
+}
+div.error { display: none; }
+input.checkbox { border: none }
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }  
+
+table tr.row_selected td {
+    background-color: #B0BED9 !important;
+}
+
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}

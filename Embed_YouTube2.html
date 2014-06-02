@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<link rel="stylesheet" type="text/css" href="file:///home/mimsdahl/Desktop/MERID/MyWebsite/stylesheet.css">
+<div id="title" style="text-align:center">
+<b>Violin Solo</b><br><br></div>
+<div id="prompt" style="background-color:#13c4f3;padding:10px;" value="Question: What did you think about the violin solo in htese 12 bars?">
+<b>Question:</b> What did you think about the violin solo in these 12 bars?<br><br>
+</div></head>
+
+<!--set up player-->
+<body>
+<div id="body">
+<script>
+   var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    var startTime = 30; 
+    var endTime = 60; 
+    videoId: 'o1dBg__wsuo#t=20'; 
+
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+        width: '320', 
+        events: {
+          'onReady': startPlayer 
+        }
+      });
+    }
+ 
+    function startPlayer() {
+        var comment_startTime = startTime; 
+        var comment_endTime = endTime;
+        var videoId= 'o1dBg__wsuo#t=20';
+        player.loadVideoById({'videoId': videoId, 'startSeconds': startTime, 'endSeconds': endTime}); 
+        var sTime = document.question.startTime_tb;
+        sTime.value = startTime;
+        var eTime = document.question.endTime_tb;
+        eTime.value = endTime;
+    }
+</script>
+
+<!--append comments-->
+<form name="comment_div">
+<div id="player" style="float:left; padding:5px;">
+</div>
+<div id="submittedComments" style="float:right;background-color:#ccc; height:350px;width:40%;min-width:200px;padding:5px;margin:5px;border:2px solid red;"></div>
+
+
+<!--submit all-->
+<div>
+<button id="submit_all" value="submit all!" style="background-color:#d81738;height:40px;position:absolute;top:480px;right:10px;padding:10px;" onclick="submitAll();return false;">Submit all<br><br>
+</div>
+
+</form>
+</div>
+
+<script>
+//append comments in div
+function appendComment() {
+   var myComment = document.question.comment.value;
+   var myDiv = document.getElementById("submittedComments");
+   enter_Time();
+   s = startTime + "-" + endTime + ":" + "<br>" + "-" + (myComment + "<br>");
+   myDiv.innerHTML = myDiv.innerHTML + s;
+   comment.value = "";
+   myDiv.scrollTop = myDiv.scrollHeight;
+}
+//make window for researcher to view comments
+function submitAll() {
+  var myWindow = window.open("","","width=350,height=400");
+  var s = document.getElementById("submittedComments").innerHTML;
+  var c = "<b>Comments:</b> <br>" + s; 
+  myWindow.document.write(c);
+}
+</script>
+
+<script>
+
+function setStartTime() { 
+  var num = player.getCurrentTime();
+  var sTime = Math.round(num*10)/10; 
+  startTime = sTime;
+  document.question.startTime_tb.value = sTime; 
+  startTime.value = document.question.startTime_tb.value;
+}
+
+function setEndTime() { 
+  var num = player.getCurrentTime();
+  var eTime = Math.round(num*10)/10; 
+  endTime = eTime;
+  document.question.endTime_tb.value = eTime;
+  endTime.value = document.question.endTime_tb.value;
+}
+
+function seekTo() { 
+  var seekTime = document.question.seekToTime;
+  if ((startTime <= seekTime.value) && (seekTime.value <= endTime)) {
+    player.seekTo(seekTime.value, true);
+    var textAlert = document.getElementById("alert");
+    textAlert.innerHTML = "";
+  }
+  else {
+    var textAlert = document.getElementById("alert");
+    textAlert.innerHTML = "Please choose another time!";
+  }
+  seekTime.value="";
+} 
+
+// ENTER 
+function enter_Seek(e) {  //disable submit button!!
+  if (e.keyCode == 13){
+    document.getElementById('seek').click();
+  }
+}
+
+function enter_Comment(e) {
+    document.getElementById('comment').click();
+    enter_Time();
+} 
+
+function enter_Time() {
+  startTime = Math.round(document.question.startTime_tb.value*10)/10;
+  startTime.value = Math.round(document.question.startTime_tb.value*10)/10;
+  endTime = Math.round(document.question.endTime_tb.value*10)/10;
+  endTime.value = Math.round(document.question.endTime_tb.value*10)/10;
+}
+</script>
+
+<div id="set"> 
+<form name="question">
+<input type="button" id="seek" value="Seek to:" onclick="seekTo();return false;" style="color:blue;"> 
+<input type="text" name="seekToTime" style="width:25px;" onkeypress="enter_Seek(event);">
+<input type="button"  id="start" value="Start time:" onclick="setStartTime();return false;" style="color:blue">
+<input type="text" name="startTime_tb" style="width:45px;" onkeypress="enter_Time();">
+<input type="button" id="end" value="End time:" onclick="setEndTime();return false;" style="color:blue;">
+<input type="text" name="endTime_tb" style="width:45px" onkeypress="enter_Time();">
+<span id="alert"></span><br> 
+Please add a comment in the below textbox. You can select a start and stop <br> time by clicking on the respective buttons above at the time you want. <br>
+<input type="comment" id="comment" rows="4" cols="73" onkeypress="enter_Comment(event);" value="" style="width: 600px; height: 20px;">
+<br><br>
+<input type="submit" id="submit" value="Submit comment!" onclick="appendComment();return false;" style="background-color:pink;"><br><br>
+</form>
+</div>
+
+<!--choose video for left/right/top/bottom-->
+<div id="chooseVideo">
+<script>
+function newVideo() { //edit to play any of the videos
+   videoId = 'CCLxso5XDN4';
+   startTime = 110;
+   endTime = 120;
+    player.loadVideoById({'videoId': videoId, 'startSeconds': startTime, 'endSeconds': endTime});
+}
+
+function getVideo(e) { //get video through textbox input
+   if (e.keyCode == 13){
+	var v = document.four_videos.next_video;
+	videoId.value = v.value; 
+	startPlayer();
+   }
+}
+</script>
+<form name="four_videos" style="background-color:gray">
+<a href="" id="video1" value="CCLxso5XDN4" start="20" end="30">video 1</a>
+<a href="" id="video2" value="TCOCowngD5s">video 2</a>
+<a href="" id="video3" value="CCLxso5XDN4">video 3</a>
+<a href="" id="video4" value="TCOCowngD5s">video 4</a>
+<a href="" id="video5" value="CCLxso5XDN4">video 5</a><br><br>
+<input type="button" value="play next video" onclick="newVideo()" style="background-color:red; height: 30px">
+<input type="text" id="next_video" style="width:100px">
+</form>
+</div>
+</body>
+</html>

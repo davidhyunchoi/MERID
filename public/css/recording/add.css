@@ -1,0 +1,27 @@
+form ul {
+    width:750px;
+    list-style-type:none;
+    list-style-position:outside;
+    margin:0px;
+    padding:0px;
+}
+form li{
+    padding:12px; 
+    border-bottom:1px solid #eee;
+    position:relative;
+}
+table tr.row_selected td {
+    background-color: #B0BED9 !important;
+}
+
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}

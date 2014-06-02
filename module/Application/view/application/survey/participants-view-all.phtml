@@ -1,0 +1,205 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css")
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/css/jquery.dataTables.yadcf.css')
+        ->appendStylesheet($this->basePath() . '/css/survey/participants.css')
+?>
+
+<?php $this->headScript()
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.dataTables.yadcf.js',   'text/javascript')
+        ->appendFile($this->basePath() . '/js/survey/participantsViewAll.js',    'text/javascript')
+?>
+<?php 
+    $participantsUnderSurvey = $this->layout()->participantsUnderSurvey;
+    $pendingParticipantsUnderSurvey = $this->layout()->pendingParticipantsUnderSurvey;
+    $removedUnderSurvey = $this->layout()->removedUnderSurvey;
+    $notPresentParticipants = $this->layout()->notPresentParticipants;
+    $surveyId = $this->layout()->surveyId;
+    $survey = $this->layout()->survey;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$survey->project->id)); ?>">
+                <?php echo $survey->project->name; ?></a> > 
+          <a href="<?php echo $this->url('survey',
+            			array('controller'=>'survey','action'=>'edit','id'=>$surveyId));?>">
+              Edit <?php echo $survey->title;?></a> > <span id="current">Manage Participants</span>     
+    </p>    
+</div>
+
+<h2>Current Survey Participants</h2>
+
+<form id="meridSurveyParticipants" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="surveyParticipants">
+        <thead>
+            <tr>
+            <th>Remove</th>
+            <th>Edit</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Display Name</th>
+            <th>Email</th>
+            <th>Instrument</th>
+            <th>Player Number</th>
+            <th>Desk</th>
+            <th>Playing Part</th>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($participantsUnderSurvey as $participant)
+                    {
+                    ?>
+                <tr id="<?php echo $participant->id;?>">
+                    <td class="changers"><a href="#" id="<?php echo $participant->id; ?>" class="remove">Remove</a></td>
+                    <td class="changers"><a href="#" id="<?php echo $participant->id; ?>" class="editpts">Edit</a></td>
+                    <td id="<?php echo $participant->id; ?>" class="firstName"><?php echo $participant->firstName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="lastName"><?php echo $participant->lastName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="userName"><?php echo $participant->userName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="email"><?php echo $participant->user->email; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="instrument"><?php echo $participant->instrument; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="playerNumber"><?php echo $participant->playerNumber; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="desk"><?php echo $participant->desk; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="playingPart"><?php echo $participant->playingPart; ?></td>
+                </tr>
+                <?php
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="removeId" id="removeId"  type="hidden" value=""/>
+    <input name="surveyId" id="surveyId" type="hidden" value="<?php echo $surveyId; ?>"/>
+    <div id="confirmRemove"></div> 
+</form> 
+<br/>
+
+
+<h2>Pending Survey Participants</h2>
+
+<form id="PendingSurveyParticipants" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="surveyPendingParticipants">
+        <thead>
+            <tr>
+            <th>Remove</th>
+            <th>Edit</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Display Name</th>
+            <th>Email</th>
+            <th>Instrument</th>
+            <th>Player Number</th>
+            <th>Desk</th>
+            <th>Playing Part</th>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($pendingParticipantsUnderSurvey as $participant)
+                    {
+                    ?>
+                <tr id="<?php echo $participant->id;?>">
+                    <td class="changers"><a href="#" id="<?php echo $participant->id; ?>" class="premove">Remove</a></td>
+                    <td class="changers"><a href="#" id="<?php echo $participant->id; ?>" class="peditpts">Edit</a></td>
+                    <td id="<?php echo $participant->id; ?>" class="firstName"><?php echo $participant->firstName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="lastName"><?php echo $participant->lastName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="userName"><?php echo $participant->userName; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="email"><?php echo $participant->user->email; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="instrument"><?php echo $participant->instrument; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="playerNumber"><?php echo $participant->playerNumber; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="desk"><?php echo $participant->desk; ?></td>
+                    <td id="<?php echo $participant->id; ?>" class="playingPart"><?php echo $participant->playingPart; ?></td>
+                </tr>
+                <?php
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="premoveId" id="premoveId"  type="hidden" value=""/>
+    <input name="psurveyId" id="psurveyId" type="hidden" value="<?php echo $surveyId; ?>"/>
+    <div id="pconfirmRemove"></div> 
+</form> 
+<!--
+<h2>Removed Participants</h2>
+
+<form id="inactiveParticipants" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="removedParticipants">
+        <thead>
+            <tr>
+            <th>Reinstate</th>
+            <th>Display Name</th>
+            <th>Email</th>
+            <th>Instrument</th>
+            <th>Player Number</th>
+            <th>Desk</th>
+            <th>Playing Part</th>
+            </tr>
+        </thead>
+        <tbody>
+                <php 
+                    foreach($removedUnderSurvey as $removedParticipant)
+                    {
+                    ?>
+                <tr id="<php echo $removedParticipant->id; ?>">
+                    <td class="changers"><a href="#" id="<php echo $removedParticipant->id; ?>" class="reinstate">Reinstate</a></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="userName"><php echo $removedParticipant->userName; ?></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="email"><php echo $removedParticipant->user->email; ?></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="instrument"><php echo $removedParticipant->instrument; ?></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="playerNumber"><php echo $removedParticipant->playerNumber; ?></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="desk"><php echo $removedParticipant->desk; ?></td>
+                    <td id="<php echo $removedParticipant->id; ?>" class="playingPart"><php echo $removedParticipant->playingPart; ?></td>
+                </tr>
+                <php
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="id" class="hidden" type="hidden" value=""/>
+    <div id="confirmReinstate"></div> 
+</form><br/> 
+-->
+<h2>Participants Not Present in Survey</h2>
+
+<form id="notInSurveyParticipants" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="notPresentParticipants">
+        <thead>
+            <tr>
+            <th>Invite</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Display Name</th>
+            <th>Email</th>
+            <th>Instrument</th>
+            <th>Player Number</th>
+            <th>Desk</th>
+            <th>Playing Part</th>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                    foreach($notPresentParticipants as $notPresentParticipant)
+                    {
+                    ?>
+                <tr id="<?php echo $notPresentParticipant->id; ?>">
+                    <td class="changers"><a href="#" id="<?php echo $notPresentParticipant->id; ?>" class="invite">Invite</a></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="firstName"><?php echo $notPresentParticipant->firstName; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="lastName"><?php echo $notPresentParticipant->lastName; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="userName"><?php echo $notPresentParticipant->userName; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="email"><?php echo $notPresentParticipant->user->email; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="instrument"><?php echo $notPresentParticipant->instrument; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="playerNumber"><?php echo $notPresentParticipant->playerNumber; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="desk"><?php echo $notPresentParticipant->desk; ?></td>
+                    <td id="<?php echo $notPresentParticipant->id; ?>" class="playingPart"><?php echo $notPresentParticipant->playingPart; ?></td>
+                </tr>
+                <?php
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input name="inviteId" id="inviteId"  type="hidden" value=""/>
+    <input name="surveyId" id="surveyId" type="hidden" value="<?php echo $surveyId; ?>"/>
+    <div id="confirmInvite"></div> 
+</form><br/> 

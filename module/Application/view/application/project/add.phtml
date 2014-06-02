@@ -1,0 +1,58 @@
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/project/add.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile($this->basePath() . '/js/project/add.js')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+<?php $defaultQuestions = $this->layout()->defaultQuestions; ?>
+<div id="nav">
+    <p>
+        > <span id="current">Create Project</span>    
+    </p>    
+</div>
+<h2>Create Project</h2>
+
+<form id="createproject" name="createproject" method="POST" action="<?php echo $this->url('project',
+                        array('controller'=>'project','action'=>'addHandler')); ?>">
+    <fieldset>	
+        Project Name: &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" name="name" size="100"/> <br/><br/>	
+
+        Orchestra Name:
+        <input type="text" name="orchestraName" size="100"/> <br/><br/>
+
+        Institution: 
+        <select name="institution" id="inst" selected="selected">
+            <option value="" selected>---Select Institution---</option>
+            <option value="cornell">Cornell</option>
+            <option value="oxford">Oxford</option>
+            <option value="stanford">Stanford</option>
+            <option value="ithaca">Ithaca College</option>
+        </select> <br/><br/>
+
+        Project Description: <br/>
+        <textarea name="description" rows="10" cols="102"></textarea> <br/><br/>
+
+        Research Rationale: <br/>
+        <textarea name="rationale" rows="10" cols="102"></textarea> <br/><br/>
+
+    </fieldset>
+    <fieldset>
+        Demographic Questions: <br/>
+        <?php
+            foreach($defaultQuestions as $question){
+                echo "<input type='checkbox' name='demographicQuestions' value='$question->id'/>$question->question<br/>";
+            }
+        ?>
+        <br/>
+    </fieldset>
+    <fieldset>
+        <input type='button' onClick="javascript: window.location.replace('/project/viewAll');" value='Cancel'/>
+        <input id="createproj" value="Create Project" type="submit"/>
+    </fieldset>
+</form>

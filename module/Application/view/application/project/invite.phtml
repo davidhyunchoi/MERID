@@ -1,0 +1,30 @@
+<?php $this->headScript()
+                ->appendFile($this->basePath() . '/js/project/project.js',    'text/javascript')
+                ->appendFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',    'text/javascript')
+?>
+<?php $projectMember =$this->layout()->projectMember;
+ $project = $projectMember->project;
+ $status = $projectMember->status;?>
+
+<h1><?php echo $project->name; ?> <?php if($status == "new"){?> <!-- Consent Form --> <?php } ?></h1>
+<p>
+        
+    Researcher: <?php echo $project->primaryResearcher->user->name; ?> <br/><br/>
+    Orchestra Name: <?php echo $project->orchestraName; ?> <br/><br/>
+    Institution: <?php echo $project->institution; ?> <br/><br/>
+    Project Description: <?php echo $project->description; ?> <br/><br/>
+    Research Rationale: <?php echo $project->rationale; ?> <br/><br/>
+    <!--Consent Form:  <?php echo "Consent form goes here..."; ?> -->
+
+</p>
+<?php if($status == "new"){ ?>
+<form action="<?php echo $this->url('project', array('controller'=>'project','action'=>'acceptProject', 'id'=>$project->id));?>">
+    <?php
+        foreach($project->demographicQuestions as $question){
+            echo "<label for='$question->id'>$question->question</label>  <input type='text' name='$question->id' value=''/><br/>";
+        }
+    ?>
+    <!--<input type="checkbox">I agree to the project's terms and conditions stated in the consent form. -->
+    <input type='submit' value='Accept'>
+</form>
+<?php } ?>

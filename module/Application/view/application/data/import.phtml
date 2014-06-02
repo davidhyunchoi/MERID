@@ -1,0 +1,39 @@
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/data/import.css')
+?>
+<?php $this->headScript()
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->appendFile($this->basePath() . '/js/data/import.js')
+?>
+<div id="nav">
+    <p>
+        > <span id="current">Import Data</span>    
+    </p>    
+</div>
+<span id="success">Import is successful!</span>
+<span id="warning">While importing, system encountered some bad data sets! Everything but the outputted line has been imported!
+</span>
+<span id="badcontent"></span>
+<span id="failure">Error encountered! Content is either not in proper format or query went wrong!</span>
+<h1>Import Data</h1>
+<form id="importMerid" enctype="multipart/form-data" action="<?php echo $this->url('data',
+            			array('controller'=>'data','action'=>'importHandler')); ?>" method="POST">
+
+<p class="direction">Choose type of data:</p>
+<select id="type" name="type">
+         <option value='Projects'>Projects</option>
+         <option value='Participants'>Participants</option>
+         <option value='Surveys'>Surveys</option>
+         <option value='Comments'>Comments</option>
+         <option value='Recordings'>Recordings</option>
+         <option value='Pieces'>Pieces</option>
+         <option value='Users'>Users</option>
+         <option value='Videos'>Videos</option> 
+</select><br/><br/>
+    
+<p class="direction">Please note that text files need to be tab separated! Choose a plain text file to import:</p><input id="uploadedfile" name="uploadedfile" type="file" />
+<span id="msg"></span><br/>
+
+<input id="import" type="submit" value="Import File" />
+</form>

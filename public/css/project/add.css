@@ -1,0 +1,52 @@
+#createproj
+{
+	float: right;
+}
+
+.ucf
+{
+	text-align: center;
+	font-weight: bold;
+}
+
+.choose{
+    position:relative;
+    display:inline-block;    
+	border-radius:8px;
+    border:#ebebeb solid 1px;
+    width:250px; 
+    padding: 4px 6px 0px 8px;
+    font: normal 14px Myriad Pro, Verdana, Geneva, sans-serif;
+    margin-top: 2px;
+	background: #999;
+}
+.choose input[type="file"]{
+    -webkit-appearance:none; 
+    position:absolute;
+    top:0; 
+	left:0;
+    opacity:0; 
+}
+
+form label.error, label.error {
+    color: red;
+    font-style: italic;
+    font-weight: lighter;
+    padding: 10px;
+}
+div.error { display: none; }
+input.checkbox { border: none }
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }       
+
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}

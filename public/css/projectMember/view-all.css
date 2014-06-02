@@ -1,0 +1,140 @@
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+.label {
+  padding: 0px 10px 0px 10px;
+	border: 1px solid #ccc;
+	-moz-border-radius: 1em; 
+	-webkit-border-radius: 1em; 
+	border-radius: 1em; 
+}
+
+.label.lightblue {
+	background-color: #99CCFF;
+}
+
+#projectParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}
+
+#pendingParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}
+
+#removedParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}
+
+#external_filter_container_wrapper {
+  margin-bottom: 20px;
+}
+
+#external_filter_container {
+  display: inline-block;
+}
+
+#options a
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   margin: 2px 0px 2px 0px;
+   padding: 3px;
+   width: 225px;
+   display: inline-block;
+   text-align: center;
+}
+
+#options a:hover
+{
+    background-color: #acea11;
+}
+
+a.remove 
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   margin: 1.5px 0px 1.75px -7.5px;
+   text-decoration: none;
+   font-weight: bold;
+   width: 80px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.remove:hover
+{
+    background-color: #acea11;
+}
+
+a.editpts
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   margin-left: -7.5px;
+   text-decoration: none;
+   font-weight: bold;
+   width: 60px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.editpts:hover
+{
+   background-color: #acea11;
+}
+
+td.changers
+{
+    width: 30px;
+}
+
+a.reinstate{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   width: 90px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.reinstate:hover
+{
+   background-color: #acea11;
+}

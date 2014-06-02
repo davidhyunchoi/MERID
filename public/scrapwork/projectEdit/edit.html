@@ -1,0 +1,14 @@
+<h1>Edit Project Settings</h1>
+<form>
+    Title: <input type="text" value="Existing title"> <br /><br />
+    Description: <textarea name="editProjInfo">Existing project information details</textarea> <br /><br />
+    Consent form: <textarea name="editConsent">Existing consent form</textarea> <br /><br />
+    <a href="/manage-users.phtml">Manage project participants</a> <br /><br />
+    <a href="/manage-surveys.phtml">Manage surveys in project</a> <br /><br />
+	<a href="/manage-videos.phtml">Manage videos in project</a> <br /><br />
+    <input type="submit" value="Submit">
+</form>
+<a href="<?php echo $this->url('application/',
+            array('controller'=>'project','action'=>'view'));?>">Back</a>
+
+    

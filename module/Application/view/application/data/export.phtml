@@ -1,0 +1,58 @@
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/data/export.css')
+?>
+<?php $this->headScript()
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->appendFile($this->basePath() . '/js/data/jszip.js')
+        ->appendFile($this->basePath() . '/js/data/filesaver.js')
+        ->appendFile($this->basePath() . '/js/data/export.js')
+?>
+<?php 
+     $projects = $this->layout()->projects;
+     $surveysInProject = $this->layout()->surveysInProject;
+?>
+<div id="nav">
+    <p>
+        > <span id="current">Export Data</span>    
+    </p>    
+</div>
+
+<h1>Export Data</h1>
+<h3>Projects</h3>
+1. For participants of a project, check only participants. <br/>
+2. For surveys under a project, check one or more. <br/>
+3. For comments, check only one survey and the comments box. <br/>
+4. For project, participants, surveys, and comments information in one package, click export without checks. <br/>
+5. For all MERID data, click the export all button.
+<br/><br/>
+
+<form id="data" action="<?php echo $this->url('data',
+            			array('controller'=>'data','action'=>'exportHandler')); ?>" type="POST">
+<?php 
+      $projects =$this->layout()->projects;
+      foreach($projects as $proj)
+            { ?>
+                <div id="<?php echo $proj->id; ?>">
+                <a href="#" id="<?php echo $proj->id; ?>"><?php echo $proj->name;?></a><br/>
+                Participants <input id="participants" name="participants" type="checkbox" value="exportParticipants"/> <br/>
+<?php
+                foreach($surveysInProject as $survey)
+                {
+                    if($survey->project->id == $proj->id)
+                    {
+                        echo $survey->title;
+                        ?>
+                        <input class="survey" id="<?php echo $survey->id;?>" type="checkbox" value="<?php $survey->id;?>"/><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Comments <input class="comments" id="<?php echo $survey->id;?>" type="checkbox" value="<?php $survey->id;?>"/><br/>
+                        <?php
+                    }
+                }
+?>             <br/>
+               <input id="<?php echo $proj->id;?>" class="exportOne" type="button" value="Export Data for <?php echo $proj->name;?>"/><br/><br/>
+                </div>
+<?php
+            }
+?>
+<input id="exportAll" value="Export All Data" type="button"/>
+</form>          

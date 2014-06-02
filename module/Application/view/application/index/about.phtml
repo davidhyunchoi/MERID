@@ -1,0 +1,39 @@
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+				->prependStylesheet($this->basePath() . '/css/index/about.css')
+?>
+<h1>About MERID</h1>
+
+<div class="description">
+<p>
+MERID is a web application concept that will enable researchers to run surveys and research 
+investigations with respondents, online. It is media enabled, so respondents will primarily be 
+commenting on and annotating on video / audio added by researchers, per researchers surveys. <br/><br/>
+ 
+For certain psychological/social experiments involving groups of 4-100 people, it's valuable to have 
+multiple video cameras giving different views of the group. For example, in studying the group dynamics 
+and individual interactions within a drama one might have 4 cameras capturing broad views (potentially 
+supplemented by additional cameras for local views). Thinking of the 4-camera setup for simplicity, the 
+video feeds could be synchronised via a common audio feed. The need is for a web-based portal to 
+allow comments from each participant relating to potentially significant 'events' during the videoed 
+session where commented 'events' are time-tagged so that other participants can be encouraged to 
+consider their interactions with that 'event' and record their comments. There's quite a bit more 
+functionality which can be discussed with those interested in talking about this further -- the intended 
+application is a little different, and would be ready to use this as soon as this is available, but this 
+webapp if built with a little generality could find application in quite a variety of situations. <br/><br/>
+ 
+The primary current application is investigating interactions within an orchestra by investigating 
+musicians and their communications with each other, through video of rehearsals, research currently 
+being done at Oxford. 
+ 
+This project will have a large number of users, and we envision that having this tool will enable this sort 
+of remote, online, but personal investigative research in multiple applications, at many institutions 
+around the world. We anticipate having a dozen orchestras in the first year, rapidly growing into the 
+second year possibly up to 50 orchestras. There's a natural extension of this application to arenas 
+beyond orchestral music, however there are researchers ready and waiting to test it in earnest 
+internationally within the current context. 
+</p>
+</div>
+
+<a href="<?php echo $this->url('index',
+            array('controller'=>'index','action'=>'index'));?>">Back to Home</a>
+                      

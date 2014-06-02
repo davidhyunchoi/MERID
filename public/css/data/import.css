@@ -1,0 +1,43 @@
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+#msg
+{
+    color: red;
+    font-weight: bold;
+}
+
+.direction
+{
+    font-weight: bold;
+}
+
+#success
+{
+    color: green;
+    font-weight: bold;
+    display: none;
+}
+
+#warning
+{
+    color: orange;
+    font-weight: bold;
+    display: none;
+}
+
+#failure
+{
+    color: red;
+    font-weight: bold;
+    display: none;
+}

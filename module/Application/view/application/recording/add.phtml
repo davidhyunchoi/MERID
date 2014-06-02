@@ -1,0 +1,202 @@
+<?php $this->headLink()
+        ->appendStylesheet($this->basePath() . '/css/recording/add.css')
+        ->appendStylesheet($this->basePath() . '/DataTables-1.9.4/media/css/jquery.dataTables.css')     
+        
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/recording/add.js',    'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/DataTables-1.9.4/media/js/jquery.dataTables.min.js',   'text/javascript')
+//        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+
+<?php
+    $projects = $this->layout()->projects;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('recording',
+                array('controller'=>'recording','action'=>'viewAll'));?>">Manage Recordings</a> > 
+                <span id="current">Add New Recording</span>
+    </p>    
+</div>
+<h2>Add a new  Recording</h2>
+<div>
+    <form id="addRecordingForm" name="recording">
+        <legend>Recording</legend>
+        <ul>
+            <li class="recordingInfo">
+                <label for="title">Title</label>
+                <input type="text" name="title"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="recordingInfo">
+                <label for="location">Location</label>
+                <input type="text" name="location"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="recordingInfo">
+                <label for="recordingTime">Date of Recording</label>
+                <input type="date" name="recordingTime"/>
+                <span class="form_hint"></span>
+            </li>
+        </ul>
+    </form>
+</div>
+<div>
+    <legend>Add recording to projects</legend>
+    <span>You can leave this blank for now</span>
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="projects">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Project Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                foreach($projects as $project){
+            ?>
+                <tr class="projectRow" id="<?php echo $project->id ?>">
+                    <td><input class="rowSelect" type="checkbox" name="projectId"></td>
+                    <td><?php  echo $project->name ?></td>
+                </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
+</div>
+<div>
+    <form class="addRecordingPiece" name="recording" method="POST" action="">
+        <legend>Piece 1</legend>
+        <ul>
+            <li class="pieceInfo">
+                <label for="title">Title</label>
+                <input type="text" name="title"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="composer">Composer</label>
+                <input type="text" name="composer"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="genre">Genre</label>
+                <input type="text" name="genre"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="arranger">Arranger</label>
+                <input type="text" name="arranger"/>
+                <span class="form_hint"></span>
+            </li>
+        </ul>
+    </form>
+</div>
+<div><button id="addPiece">Add another piece</button></div>
+<div>
+    <form class="addRecordingVideo" name="video" method="POST" action="">
+        <legend>Video 1</legend>
+        <ul>
+            <li class="videoInfo">
+                <label for="name">Name</label>
+                <input type="text" name="name"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="videoInfo">
+                <label for="link">Link</label>
+                <input type="text" name="link"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="videoInfo">
+                <label for="offsetTime">Offset time</label>
+                <input type="text" name="offsetTime"/>
+                <span class="form_hint">Offset of video1 must be zero seconds.</span>
+            </li>
+            <li class="videoInfo">
+                <label for="startTime">Start time </label>
+                <input type="text" name="startTime"/>
+                <span class="form_hint">Proper format: hh:mm:ss</span>
+            </li>
+            <li class="videoInfo">
+                <label for="endTime">End time </label>
+                <input type="text" name="endTime"/>
+                <span class="form_hint">Proper format: hh:mm:ss</span>
+            </li>
+            <li class="videoInfo">
+                <label for="position">Camera position</label>
+                <input type="text" name="position"/>
+                <span class="form_hint">Should be NW, NE, SW, SE, or composite</span>
+            </li>
+        </ul>
+    </form>
+</div>
+<div><button id="addVideo">Add another video</button></div>
+<div><button id="submitRecording" type="submit">Submit Recording</button></div>
+
+<template id="videoTemplate">
+    <form class="addRecordingVideo" name="video" method="POST" action="">
+        <legend>Video <span class="videoCount">2</span></legend>
+        <ul>
+            <li class="videoInfo">
+                <label for="name">Name</label>
+                <input type="text" name="name"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="videoInfo">
+                <label for="link">Link</label>
+                <input type="text" name="link"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="videoInfo">
+                <label for="offsetTime">Offset time</label>
+                <input type="text" name="offsetTime"/>
+                <span class="form_hint">Offset must be in sec</span>
+            </li>
+            <li class="videoInfo">
+                <label for="startTime">Start time </label>
+                <input type="text" name="startTime"/>
+                <span class="form_hint">Proper format: hh:mm:ss</span>
+            </li>
+            <li class="videoInfo">
+                <label for="endTime">End time </label>
+                <input type="text" name="endTime"/>
+                <span class="form_hint">Proper format: hh:mm:ss</span>
+            </li>
+            <li class="videoInfo">
+                <label for="position">Camera position</label>
+                <input type="text" name="position"/>
+                <span class="form_hint">Should be NW, NE, SW, SE, or composite</span>
+            </li>
+        </ul>
+    </form>
+</template>
+<template id="pieceTemplate">
+    <form class="addRecordingPiece" name="recording" method="POST" action="">
+        <legend>Piece <span class="pieceCount"></span></legend>
+        <ul>
+            <li class="pieceInfo">
+                <label for="title">Title</label>
+                <input type="text" name="title"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="composer">Composer</label>
+                <input type="text" name="composer"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="genre">Genre</label>
+                <input type="text" name="genre"/>
+                <span class="form_hint"></span>
+            </li>
+            <li class="pieceInfo">
+                <label for="arranger">Arranger</label>
+                <input type="text" name="arranger"/>
+                <span class="form_hint"></span>
+            </li>
+        </ul>
+    </form>
+</template>
+

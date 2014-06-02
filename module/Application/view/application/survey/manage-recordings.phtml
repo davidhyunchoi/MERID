@@ -1,0 +1,104 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css")
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/css/jquery.dataTables.yadcf.css')
+        ->appendStylesheet($this->basePath() . '/css/survey/manageRecordings.css')
+?>
+<?php $this->headScript()
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.dataTables.yadcf.js',   'text/javascript')
+        ->appendFile($this->basePath() . '/js/survey/manageRecordings.js',    'text/javascript')
+?>
+<?php 
+    $survey = $this->layout()->survey;
+    $surveyId = $this->layout()->surveyId;
+    $surveyName = $this->layout()->surveyName;
+    $availableRecordings = $this->layout()->availableRecordings;
+    $currentRecording = $this->layout()->currentRecording;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$survey->project->id)); ?>">
+                <?php echo $survey->project->name; ?></a> > 
+          <a href="<?php echo $this->url('survey',
+            			array('controller'=>'survey','action'=>'edit','id'=>$surveyId));?>">
+              Edit <?php echo $surveyName;?></a> > <span id="current">Manage Recordings</span>     
+    </p>    
+</div>
+
+<h1>Manage Recordings</h1>
+<a id="addNewRecording" href="<?php echo $this->url('recording',
+            			array('controller'=>'recording','action'=>'add'));?>">Add New Recording</a>
+<h2>Current Recording</h2>
+
+<form id="surveyRecording" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="currentRecording">
+        <thead>
+            <tr>
+            <th>Projects</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+                 <?php 
+                    $projects = "";
+                    foreach($currentRecording->projects as $project)
+                    {
+                        $projects = $projects . $project->name . ', '; 
+                    }
+                    ?>
+                    <tr id="<?php echo $currentRecording->id;?>">
+                    <td id="<?php echo $currentRecording->id;?>" class="projects"><?php echo rtrim($projects, ', '); ?></td>
+                    <td id="<?php echo $currentRecording->id;?>" class="title"><?php echo $currentRecording->title ?></td>
+                    <td id="<?php echo $currentRecording->id;?>" class="location"><?php echo $currentRecording->location ?></td>
+                    <td id="<?php echo $currentRecording->id;?>" class="recordingTime"><?php echo $currentRecording->recordingTime->format('m-d-Y'); ?></td>
+                    </tr>
+        </tbody>
+    </table><br/>
+</form> 
+<br/>
+
+<h2>Available Recordings</h2>
+
+<form id="availableSurveyRecordings" type="POST">    
+    <table cellpadding="0" cellspacing="0" border="0" id="availableRecordings">
+        <thead>
+            <tr>
+            <th>Select</th>    
+            <th>Projects</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+               <?php 
+                    $pprojects = "";
+                    foreach($availableRecordings as $recording)
+                    {
+                        foreach($recording->projects as $project)
+                        {
+                            $pprojects = $pprojects . $project->name . ', '; 
+                        }
+                    ?>
+                    <tr id="<?php echo $recording->id;?>">
+                    <td class="changers"><a href="#" id="<?php echo $recording->id; ?>" class="select">Select</a></td>
+                    <td id="<?php echo $recording->id;?>" class="projects"><?php echo rtrim($pprojects, ', ') ?></td>
+                    <td id="<?php echo $recording->id;?>" class="title"><?php echo $recording->title ?></td>
+                    <td id="<?php echo $recording->id;?>" class="location"><?php echo $recording->location ?></td>
+                    <td id="<?php echo $recording->id;?>" class="recordingTime"><?php echo $recording->recordingTime->format('m-d-Y'); ?></td>
+                    </tr>
+                <?php
+                    }
+                    ?>
+        </tbody>
+    </table><br/>
+    <input id="selectId" name="selectId" class="hidden" type="hidden" value=""/>
+    <input id="survey" name="surveyId" type="hidden" class="<?php echo $surveyName;?>" value="<?php echo $surveyId; ?>"/>
+    <div id="confirmSelect"></div> 
+</form><br/> 

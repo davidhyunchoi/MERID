@@ -1,0 +1,54 @@
+@font-face {
+	font-family: 'Univers LT Std';
+	src: url('../fonts/Univers LT Std/UniverseLTStd.otf');
+}
+
+@font-face {
+	font-family: 'Average Sans';
+	src: url('../fonts/Average Sans/AverageSans-Regular.ttf');
+}
+
+#header {
+	background-color:crimson; 
+	color:white; 
+	padding: 10px;
+	min-width: 300px;
+	min-height: 40px;
+}
+
+#body {
+	float:center;
+	min-height: 600px;
+	min-width: 600px;
+	padding-bottom:18px;
+}
+
+#MERID {
+	text-align: center;
+	font-size: 20px;
+}
+
+footer {
+	position:asbolute;
+	bottom:0px;
+	margin:0px;
+	padding:0px;
+}
+
+#footer {
+	background-color:crimson; 
+	position:asbolute;
+	bottom:0px;
+	color:white; 
+	padding: 5 0 5 0px;
+	margin:0px;
+	min-width: 300px;
+	height: 18px;
+	text-align:center;
+}
+
+#footer div {
+	display:inline;
+	margin:0 25 0 25px;
+}
+

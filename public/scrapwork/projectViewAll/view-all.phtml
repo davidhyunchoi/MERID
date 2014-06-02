@@ -1,0 +1,125 @@
+<link rel="stylesheet" type="text/css" href="projectViewAll.css" media="screen" />
+ <h1>View All Projects</h1>
+<div id="mainContent">
+
+	<div id="top">
+		<div id="newsfeed"> 
+			<span class="divTitle">
+				Newsfeed
+			</span>
+			<ul id="newsfeedList">
+				<li class="project"> 
+					<a href="view.phtml" class="projectTitle">
+					Project 1
+					</a>
+					<span class="projectUpdated">
+						Last Updated: 12/3/13 9:23PM by User 1
+					</span>
+					<ul class="updatesList">
+						<li>
+							<a href="../survey/view.phtml">
+							Survey 1a
+							</a>
+							<span class="surveyUpdate">
+								<span class="activity">
+								User 1 responded to comment 1acom
+								<span>
+								<span class="time">
+									4 hrs ago
+								</span>
+							<span>
+						</li>
+						<li>
+							<a href="../survey/view.phtml">
+							Survey 1a
+							</a>
+							<span class="surveyUpdate">
+								<span class="activity">
+								User 1 responded to comment 1acom
+								<span>
+								<span class="time">
+									4 hrs ago
+								</span>
+							<span>
+						</li>
+					</ul>
+				</li> 
+				<li class="project"> 
+					<a href="view.phtml" class="projectTitle">
+					Project 1
+					</a>
+					<span class="projectUpdated">
+						Last Updated: 12/3/13 9:23PM by User 1
+					</span>
+					<ul class="updatesList">
+						<li>
+							<a href="../survey/view.phtml">
+							Survey 1a
+							</a>
+							<span class="surveyUpdate">
+								<span class="activity">
+								User 1 responded to comment 1acom
+								<span>
+								<span class="time">
+									4 hrs ago
+								</span>
+							<span>
+						</li>
+						<li>
+							<a href="../survey/view.phtml">
+							Survey 1a
+							</a>
+							<span class="surveyUpdate">
+								<span class="activity">
+								User 1 responded to comment 1acom
+								<span>
+								<span class="time">
+									4 hrs ago
+								</span>
+							<span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div id="researcherActions">
+			<span class="divTitle">
+				Researcher Priveleges
+			</span>
+			<div>
+				<input type="button" value="create new project" />
+				<input type="button" value="manage user accounts" />
+				<input type="button" value="upload new videos" />
+			</div>
+		</div>
+	</div>
+	
+	<div id="projectList">
+		<ul>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+			<li>
+				<a href="view.phtml">Project 1</a>
+			</li>
+		</ul>
+	</div>
+    <br/>
+    <a href="<?php echo $this->url('application/',
+            array('controller'=>'project','action'=>'view'));?>">Some Project</a>
+    <br/>
+    <a href="<?php echo $this->url('application/',
+            array('controller'=>'project','action'=>'add'));?>">Create Project</a>
+</div>

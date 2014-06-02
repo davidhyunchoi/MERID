@@ -1,0 +1,64 @@
+<div>
+    <legend>add project</legend>
+    <form method="post" action ="/project/addHandler">
+        <label for="name">name</label>
+        <input name="name" type="text"/>
+        <label for="orchestraName">orchestraName</label>
+        <input name="orchestraName" type="text"/>
+        <label for="description">description</label>
+        <input name="description" type="text"/>    
+        <label for="rationale">rationale</label>
+        <input name="rationale" type="text"/>
+        <fieldset>
+            <label>Participants may view participant comments</label>
+            <input type="radio" name="pToPComments" value="ALL"/>Yes
+            <input type="radio" name="pToPComments" value="NONE"/>No            
+        </fieldset>
+        <fieldset>
+            <label>Researchers may view researcher comments</label>
+            <input type="radio" name="rToRComments" value="ALL"/>Yes
+            <input type="radio" name="rToRComments" value="NONE"/>No
+        </fieldset>
+<!--        <label for="demographicQuestions[customQuestion1]">Custom Demographic Question</label>
+        <input type="text" name="demographicQuestions[customQuestion1]"/>-->
+        <input type="submit" value="submit"/>
+    </form>
+</div>
+</br>
+<div>
+    <legend>edit project</legend>
+    <form method="post" action ="/project/editHandler">
+        <label for="name">name</label>
+        <input name="name" type="text"/>
+        <label for="orchestraName">orchestraName</label>
+        <input name="orchestraName" type="text"/>
+        <label for="description">description</label>
+        <input name="description" type="text"/>    
+        <label for="rationale">rationale</label>
+        <input name="rationale" type="text"/>
+        <fieldset>
+            <label>Participants may view participant comments</label>
+            <input type="radio" name="pToPComments" value="ALL"/>Yes
+            <input type="radio" name="pToPComments" value="NONE"/>No         
+        </fieldset>
+        <fieldset>
+            <label>Researchers may view researcher comments</label>
+            <input type="radio" name="rToRComments" value="ALL"/>Yes
+            <input type="radio" name="rToRComments" value="NONE"/>No         
+        </fieldset>
+        <input type="submit" value="submit"/>
+    </form>
+</div>
+</br>
+<div>
+    <legend>delete project</legend>
+    <form method="post" action ="/project/deleteHandler">
+        <label for="project">project</label>
+        <input name="project" type="text"/>
+        <input type="submit" value="submit"/>
+    </form>
+</div>
+</br>
+<div id="projects">
+    
+</div>

@@ -1,0 +1,60 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css")
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/DataTables-1.9.4/media/css/jquery.dataTables.css')
+        ->appendStylesheet($this->basePath() . '/css/recording/view-all.css')
+?>
+
+<?php $this->headScript()
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile("http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/DataTables-1.9.4/media/js/jquery.dataTables.min.js',   'text/javascript')
+        ->appendFile($this->basePath() . '/js/recording/viewAll.js',    'text/javascript')
+    ?>
+<div id="nav">
+    <p>
+        > <span id="current">Manage Recordings</span>    
+    </p>    
+</div>
+<h2>Your Recordings</h2>
+
+<div id="msg"></div>
+
+<?php             
+    $recordings = $this->layout()->recordings;
+?>
+<div id="options">
+    <a id="addNewRecording" href="
+        <?php echo $this->url('recording', array('controller'=>'recording','action'=>'add')); ?>
+    ">Add New Recording</a><br/>
+</div>
+<br/>
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="recordings">
+    <thead>
+        <tr>
+            <th>Projects</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>More</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+            foreach($recordings as $recording){
+        ?>
+            <tr class="recordingRow">
+                <td><?php  echo $recording->getProjectListString() ?></td>
+                <td><?php  echo $recording->title ?></td>
+                <td><?php  echo $recording->location ?></td>
+                <td><?php  echo $recording->recordingTime->format('m/d/Y') ?></td>
+                <td>
+                    <a href="<?php echo $this->url('recording', array('controller'=>'recording','action'=>'view','id'=>$recording->id)); ?>">More</a>
+                </td>
+            </tr>
+        <?php
+            }
+        ?>
+    </tbody>
+</table> 

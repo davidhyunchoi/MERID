@@ -1,0 +1,47 @@
+ul
+{
+	list-style-type: none;
+}
+
+.video
+{	
+	border: solid black 2px;
+	width:300px;
+	padding: 15px;
+	margin-top: -288px;
+	margin-bottom: auto;
+	margin-left: 600px;
+	margin-right: auto;
+}
+
+.invite
+{
+	margin-top: 150px;
+	margin-bottom: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.users
+{
+	border: solid black 2px;
+	padding: 15px;
+	width: 900px;
+	margin-top: -230px;
+	margin-bottom: auto;
+	margin-left: 240px;
+	margin-right: auto;
+}
+
+.groups
+{
+	border: solid black 2px;
+	padding: 15px 15px 60px 15px;
+	width: 200px;
+	
+}
+
+#createsurv
+{
+	float: right;
+}

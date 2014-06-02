@@ -1,0 +1,169 @@
+<?php $this->headLink()
+        ->appendStylesheet($this->basePath() . '/css/projectMember/add.css')
+        ->appendStylesheet('//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile('http://code.jquery.com/ui/1.10.4/jquery-ui.js','text/javascript')
+        ->appendFile($this->basePath() . '/js/projectMember/add.js')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+<?php 
+    $project = $this->layout()->project; 
+    $isResearcherView = $this->layout()->researcherView;
+    $title = $isResearcherView ? "Researcher" : "Participant";
+    $value = 0;
+    if($title == 'Researcher')
+    {
+        $value = 1;
+    }
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$project->id)); ?>">
+                <?php echo $project->name; ?></a> > <a href="<?php echo $this->url('projectMember', 
+                        array('controller'=>'projectMember','action'=>'viewAll', 'id' => $project->id)); ?>?researchers=<?php echo $value;?>">Manage <?php echo $title . 's'; ?></a> 
+                > <span id="current">Add <?php echo $title; ?></span>    
+    </p>    
+</div>
+<div id="projectMember">
+<?php 
+    $projectId = $this->layout()->projectId; 
+    ?>
+    <div id="projectId" class="hidden"><?php echo $projectId; ?></div>
+    <h1>Add <?php echo $title ?></h1>
+
+	<!--place a hidden input within the form, name="project", value="php echo project_id"  -->
+	<form id='signup_form' action='<?php echo $this->url('projectMember',
+            			array('controller'=>'projectMember','action'=>'addHandler', 'id' => $projectId)); ?>' method='post' >
+            <?php 
+                if(!$isResearcherView){
+                    echo "<fieldset>
+
+                        <label for='userName'>Display Name: </label>
+                        <input type='text' name='userName' id='userName' value=''><br/>
+
+                        <label for='email'>Email: </label>
+                        <input type='email' name='email' id='email' value=''><div id='error'></div><div id='valid'></div><br/>
+                        
+                        <label for='firstName'>First Name: </label>
+                        <input type='text' name='firstName' id='firstName' value=''/><br/><br/>
+                        
+                        <label for='lastName'>Last Name: </label>
+                        <input type='text' name='lastName' id='lastName' value=''/><br/><br/>
+                        
+                        Player Defaults:<br/>
+                        <label for='instrument'>Instrument:</label>
+                        
+                        <select id='instrument' name='instrument'> 
+                            <optgroup label='Conductor'>
+                                <option value='conductor'>Conductor</option>
+                            </optgroup>
+                            <optgroup label='Vocal'>
+                                <option value='soprano'>Soprano</option>
+                                <option value='mezzo-soprano'>Mezzo-soprano</option>
+                                <option value='alto'>Alto</option>
+                                <option value='tenor'>Tenor</option>
+                                <option value='baritone'>Baritone</option>
+                                <option value='bass'>Bass</option>
+                                <option value='narrator'>Narrator</option> 
+                            </optgroup>
+                            <optgroup label='Woodwind'>
+                                <option value='piccolo'>Piccolo</option>
+                                <option value='flute'>Flute</option>
+                                <option value='alto flute'>Alto Flute</option>
+                                <option value='oboe'>Oboe</option>
+                                <option value='english horn'>English Horn(Cor anglais)</option>
+                                <option value='oboe damore'>Oboe d'amore</option>
+                                <option value='clarinet'>Clarinet</option>
+                                <option value='bass clarinet'>Bass clarinet</option>  
+                                <option value='bassoon'>Bassoon</option>
+                                <option value='contra bassoon'>Contra Bassoon</option>
+                                <option value='saxophone'>Saxophone</option>
+                            </optgroup>
+                            <optgroup label='Brass'>
+                                <option value='horn'>Horn</option>
+                                <option value='trumpet'>Trumpet</option>
+                                <option value='cornet'>Cornet</option>
+                                <option value='trombone'>Trombone</option>
+                                <option value='bass trombone'>Bass Trombone</option>
+                                <option value='euphonium'>Euphonium</option>
+                                <option value='tuba'>Tuba</option>
+                                <option value='wagner tuba'>Wagner tuba</option>
+                            </optgroup>
+                            <optgroup label='Percussion'>
+                                <option value='timpani'>Timpani</option>
+                                <option value='drum'>Drum</option>
+                                <option value='cymbals'>Cymbals</option>
+                                <option value='tamtam'>Tamtam</option>
+                                <option value='tambourine'>Tambourine</option>
+                                <option value='castanets'>Castanets</option>
+                                <option value='triangle'>Triangle</option>
+                                <option value='cowbell'>Cow bell</option>
+                                <option value='woodblock'>Wood blocks</option>
+                                <option value='xylophone'>Xylophone</option>
+                                <option value='glockenspiel'>Glockenspiel</option>
+                                <option value='marimba'>Marimba</option>
+                                <option value='vibraphone'>Vibraphone</option>
+                                <option value='chimes'>Tubular bells</option>
+                            </optgroup>
+                            <optgroup label='Keyboards and Harp'>
+                                <option value='harp'>Harp</option>
+                                <option value='piano'>Piano</option>
+                                <option value='organ'>Organ</option>
+                                <option value='harpsichord'>Harpsichord</option>
+                                <option value='accordion'>Accordion</option>
+                                <option value='celeste'>Celeste</option>
+                                <option value='guitar'>Guitar</option>
+                                <option value='lute'>Lute</option>
+                                <option value='mandolin'>Mandolin</option>
+                                <option value='cimbalom'>Cimbalom</option>
+                            </optgroup>
+                            <optgroup label='Strings'>
+                                <option value='violin1'>Violin 1</option>
+                                <option value='violin2'>Violin 2</option>
+                                <option value='viola'>Viola</option>
+                                <option value='viola damore'>Viola d'amore</option>
+                                <option value='cello'>Cello</option>
+                                <option value='double bass'>Double bass</option> 
+                                <option value='viol'>Viol</option>
+                            </optgroup>
+                        </select>
+                        <br/><br/>
+                        <label for='playerNumber'>Player Number:</label>
+                        <input type='text' name='playerNumber' id='playerNumber' value=''><br/><br/>
+
+                        <label for='desk'>Desk:</label>
+                        <input type='text' name='desk' id='desk' value=''><br/><br/>
+
+                        <label for='playingPart'>Playing Part:</label>		
+                        <input type='text' name='playingPart' id='playingPart' value=''><br/><br/>
+                        
+                        <input type='hidden' name='type' value='participant'/>
+                        <input type='hidden' name='project' value='$projectId'/>
+
+                        <input id='addpart' type='submit' value='Add Participant'>
+
+                    </fieldset>";
+                }else{
+                    echo "<fieldset>
+
+                        <label for='userName'>Display Name: </label>
+                        <input type='text' name='userName' id='userName' value=''><br/>
+                        <label for='email'>Email: </label>
+                        <input type='email' name='email' id='email' value=''><div id='error'></div><div id='valid'></div><br/><br/>
+                        <input type='hidden' name='type' value='researcher'/>
+                        <input type='hidden' name='project' value='$projectId'/>
+                        <input id='addpart' type='submit' value='Add $title'>
+                            
+                    </fieldset>";
+                }
+            ?>
+            
+	</form>
+</table>
+
+</div>

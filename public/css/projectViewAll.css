@@ -1,0 +1,90 @@
+#mainContent {
+}
+
+#newsfeed {
+	border: solid black 2px;
+	width:500px;
+}
+
+#newsfeed content {
+
+}
+
+.divTitle{
+	font-weight:bold;
+	text-align:left;
+
+}
+
+.project{
+	margin:10 0 10 0px;
+}
+
+.projectTitle{
+	margin-right:15px;
+}
+
+.time {
+	float:right;
+	margin-right:10px;
+}
+
+.projectUpdated{
+	float:right;
+	margin-right:50px;
+}
+
+.updatesList {
+
+}
+
+.updatesList li{
+	margin:3 0 3 0px;
+}
+
+#researcherActions {
+	border: solid black 2px;
+	width:200px;
+	margin:0 0 0 40px;
+	float:right;
+}
+
+#researcherActions div {
+	text-align:center;
+	padding:10px;
+}
+
+#researcherActions input {
+	margin-top:15px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
+#projectList { 
+	display:block;
+	border: solid black 2px;
+}
+
+#headertab a
+{
+	text-decoration: none;
+}
+
+#headertab a:hover
+{
+	background-color: orange;
+}
+
+#headertab ul {
+	list-style-type: none;
+	padding: 2px 2px 2px 2px;
+	margin:0;
+}
+
+#headertab li {
+	display: inline;
+	border: solid;
+	border-width: 1px 1px 1px 1px;
+	margin: 0.5em 0.5em 0.5em 0.5em;
+}

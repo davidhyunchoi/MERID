@@ -1,0 +1,28 @@
+
+#left_profile_body {
+	position:absolute;
+	top:120px;
+	width:280px;
+	height:280px;
+	padding:20px;
+	margin:60px;
+	margin-left:100px;
+	text-align:center;
+	font-size:20px;
+	border:1px solid #000;
+}
+
+#right_profile_body {
+	position:absolute;
+	top:120px;
+	left:400px;
+	width:280px;
+	height:280px;
+	padding:20px;
+	margin:60px;
+	margin-left:100px;
+	text-align:center;
+	font-size:20px;
+	border:1px solid #000;
+}
+

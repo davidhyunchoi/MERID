@@ -1,0 +1,187 @@
+body {
+
+}
+
+.zf-green {
+    color: #68b604;
+}
+
+.btn-success {
+  background-color: #57a900;
+  background-image: -moz-linear-gradient(top, #70d900, #57a900);
+  background-image: -ms-linear-gradient(top, #70d900, #57a900);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#70d900), to(#57a900));
+  background-image: -webkit-linear-gradient(top, #70d900, #57a900);
+  background-image: -o-linear-gradient(top, #70d900, #57a900);
+  background-image: linear-gradient(top, #70d900, #57a900);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#70d900', endColorstr='#57a900', GradientType=0);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #57a900;
+}
+
+.btn-success:active, .btn-success.active {
+  background-color: #57a900;
+}
+
+div.container a.brand {
+    background: url("../img/MERIDlogo.png") no-repeat scroll 0 10px transparent;
+    margin-left: 0;
+    padding: 8px 20px 12px 40px;
+}
+
+/*Layout style*/
+header {
+	background-color: #B60E16;
+	position: relative;
+        width: 100%;
+        padding: 35px;
+        margin: auto;
+	border-bottom: 5px solid;
+	border-color: #FFFDFA;
+}
+#logo {
+	height:40px;
+        width: 150px;
+        top: 20%;
+     	margin-left: 550px;
+        position: absolute;
+}
+
+footer {
+	background-color: #B60E16;
+	position:relative;
+	bottom:0;
+	width:100%;
+	min-width:300px;
+	padding:7px;
+	padding-right:5px;
+	border-top: 5px solid;
+	border-color: #FFFDFA;
+	text-align: center;
+}
+
+.footerlinks:link {
+	color: #FFFDFA;
+        font-size: 12pt;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.footerlinks:hover {
+    text-decoration: none;
+    color: white;
+}
+
+/*Splash style*/
+#aboutWrapper {
+width: 70%;
+max-width: 550px;
+margin: 2.5% auto;
+padding: 2.5%;
+border: 2px solid;
+}
+
+#logInWrapper {
+width: 50%;
+max-width: 400px;
+margin: 2.5% auto;
+padding: 2.5%; 
+border: 2px solid;
+}
+
+.addedLinks 
+{
+    float: right;
+}
+
+.headeroptions
+{
+    float: right;
+    font-size: 12pt;
+    font-weight: bold;
+    color: #0099CC;
+}
+
+a.headeroptions:hover
+{
+    text-decoration: none;
+    color: white;
+}
+
+#homebutton
+{
+    position: absolute;
+    width: 60px;
+    height: 55px;
+    margin-top: -20px;
+    margin-left: 65px;
+}
+
+#rpname
+{
+ color: white;
+ font-size:135%;
+ position: absolute;
+ width: 300px;
+ margin-left: 1020px;
+ margin-top: -25px;
+}
+
+#logoutbutton{
+   font-size: 12pt;
+   font-weight: bold;
+   position: absolute;
+   margin-top: 5px;
+   margin-left: -20px;
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   padding-left: 8px;
+   text-decoration: none;
+   width: 80px;
+   display: inline-block;
+}
+
+#logoutbutton:hover
+{
+    background-color: #acea11;
+}
+
+#editaccbutton
+{
+    font-size: 12pt;
+    font-weight: bold;
+    position: absolute;
+    margin-left: 1100px;
+    margin-top: 5px;
+    text-align: center;
+    width: 150px;
+    border: solid 2px #aaa;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #89ba38;
+    color: #000;
+    text-decoration: none;
+    display: inline-block;
+}
+
+#editaccbutton:hover
+{
+    background-color: #acea11;
+}
+
+template {
+	display: none !important;
+}

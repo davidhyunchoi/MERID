@@ -1,0 +1,60 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/css/user/edit.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile($this->basePath() . '/js/user/edit.js')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+
+<h1>Edit Account</h1>
+<?php 
+     $theUser = $this->layout()->user;
+?>
+<form id="edit" name="edit" method="post" action="<?php echo $this->url('user',
+            			array('controller'=>'user','action'=>'editHandler', 'id'=>$theUser->id)); ?>"> 
+<h4>MERID Account Info:</h4>
+<fieldset>
+Full Name: <input id="name" name="name" type="text" size="75" value="<?php echo $theUser->name; ?>"/> <br/><br/>
+Display Name: <input type="text" name="username" size="75" value="<?php echo $theUser->username; ?>"/><br/><br/>
+New Password: <input id="password" name="password" type="password" size="75"/> <br/><br/>
+Confirm Password: <input name="confpass" type="password" size="75"/> <br/><br/>
+
+<h4>Contact Info:</h4>
+Email: <input id="email" name="email" type="email" size="75" value="<?php echo $theUser->email; ?>"/> <br/><br/>
+Mailing Address: <br/>
+<textarea id="mailAdd" name="mailAdd" rows="6" cols="60">
+<?php echo $theUser->mailAdd; ?>
+</textarea> <br/><br/>
+Phone Number: <br/>
+<textarea id="phoneNumber" name="phoneNumber" rows="2" cols="50">
+<?php
+    echo $theUser->phoneNumber;
+ ?>	
+</textarea><br/>
+
+<h4>Research Background:</h4>
+Research Organization: <input id="org" name="org" type="text" size="75" value="<?php echo $theUser->org; ?>"/><br/><br/>
+Work of Study: <input id="wos" name="wos" type="text" size="75" value="<?php echo $theUser->wos; ?>"/><br/><br/>
+Research Interests:
+<textarea id="researchInterests" name="researchInterests" rows="6" cols="60">
+<?php
+	echo $theUser->researchInterests;
+?>	
+</textarea><br/><br/>
+
+Biography:
+<textarea id="bio" name="bio" rows="7" cols="60">
+<?php echo $theUser->bio; ?>		
+</textarea><br/><br/> 
+	<input id="editacc" value="Save Changes" type="submit"/>
+</fieldset>
+</form>
+<br/>
+<a href="<?php echo $this->url('project',
+            array('controller'=>'project','action'=>'viewAll'));?>">Back</a>
+        
+              

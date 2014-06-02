@@ -1,0 +1,120 @@
+<?php
+    $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->appendStylesheet($this->basePath() . '/css/survey/add.css')
+        ->appendStylesheet($this->basePath() . "http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css")
+        ->appendStylesheet($this->basePath() . '/DataTables-1.9.4/media/css/jquery.dataTables.css')            
+?>
+<?php 
+    $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.validate.js',   'text/javascript')
+        ->appendFile($this->basePath() . '/js/survey/add.js',   'text/javascript')   
+        ->appendFile($this->basePath() . 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',   'text/javascript')
+        ->appendFile("http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" ,   'text/javascript')
+        ->appendFile($this->basePath() . '/DataTables-1.9.4/media/js/jquery.dataTables.min.js',   'text/javascript')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+    
+<?php 
+    $project = $this->layout()->project; 
+    $recordings = $this->layout()->recordings;
+    $participants = $this->layout()->participants;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$project->id)); ?>">
+                <?php echo $project->name; ?></a> > <span id="current">Create Survey</span>    
+    </p>    
+</div>
+<div id="header">
+    <h1>Create Survey</h1>
+</div>
+<div id="surveyFormContainer">
+    <form name="createsurvey" id="createSurveyForm" method="POST" action="">
+        <h3>Survey Name: </h3>
+        <fieldset>
+            <input type="text" name="title" size="73"/>	
+
+            <h3>Prompt: </h3>
+            <textarea id="prompt" name="prompt" rows="10" cols="75"></textarea>
+            <h3>Viewability Settings: </h3>      
+            Researcher Author to Researchers: <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Always <input type="radio" name="rToRComments" value="all" checked="checked"><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;At Researcher’s discretion <input type="radio" name="rToRComments" value="some" ><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Never <input type="radio" name="rToRComments" value="none"><br/><br/>
+
+            Participant Author to Participants: <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yes<input type="radio" name="pToPComments" value="yes"><br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No <input type="radio" name="pToPComments" value="no" checked="checked"><br/><br/>
+        </fieldset>
+        <input type="hidden" name="projectId" value="<?php echo $project->id ?>"/>
+    </form>
+</div>
+<div id="participantsTableContainer">
+    <h3>Select Participants </h3>        
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="participants">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Display Name</th>
+                <th>Email</th>
+                <th>Instrument</th>
+                <th>Player Number</th>
+                <th>Desk</th>
+                <th>Playing Part</th>            
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                foreach($participants as $participant){
+            ?>
+                <tr class="participantRow" id="<?php echo $participant->id ?>">
+                    <td><input class="rowSelect" type="checkbox" name="participantId"></td>
+                    <td><?php  echo $participant->userName ?></td>
+                    <td><?php  echo $participant->user->email ?></td>
+                    <td><?php  echo $participant->instrument ?></td>
+                    <td><?php  echo $participant->playerNumber ?></td>
+                    <td><?php  echo $participant->desk ?></td>
+                    <td><?php  echo $participant->playingPart ?></td>
+                </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>  
+</div>
+<div id="recordingsTableContainer">
+    <h3>Select a Recording: </h3>
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="recordings">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Projects</th>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Recording Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                foreach($recordings as $recording){
+            ?>
+                <tr class="recordingRow" id="<?php echo $recording->id ?>">
+                    <td><input class="rowSelect" type="radio" name="recordingId"></td>
+                    <td><?php  echo $recording->getProjectListString() ?></td>
+                    <td><?php  echo $recording->title ?></td>
+                    <td><?php  echo $recording->location ?></td>
+                    <td><?php  echo $recording->recordingTime->format('m/d/Y') ?></td>
+                </tr>
+            <?php
+                }
+            ?>
+        </tbody>
+    </table>
+</div>
+<br/>
+<div id="submitContainer">
+    <button id="submitSurvey" type="submit">Create Survey</button>
+</div>
+
+

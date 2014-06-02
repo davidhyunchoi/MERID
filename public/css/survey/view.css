@@ -1,0 +1,517 @@
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+/* User_View Survey styling */
+#U_title {
+	padding:10px;
+	font-size:25px;
+}
+#U_prompt {
+        word-wrap: break-word;
+	padding: 20px;
+	background-color: #EAEAE0;
+        border: 10px solid #bbb;
+	font-size: 18px;
+	border-radius: 10px;
+	min-width: 600px;
+}
+#U_prompt_label {
+        font-size: 30px;
+}
+#U_body {	
+	display:inline-block;
+        vertical-align: top;
+	margin-right: 5%;
+        width:40%;	
+        background-color: #EAEAE0;
+        border-radius: 10px;
+        padding: 7px;
+}
+#U_videoButtons {
+	background-color:#bbb;
+        min-width: 441px;
+}
+
+#U_fiveVideos {
+    width: 2000px;
+}
+#U_video1, #U_video2, #U_video3, #U_video4, #U_video5{
+	height:40px;
+	width:85px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+	background-color:#002147;
+	color: white;
+	font-size:12px;
+	padding:5px;
+	font-weight:500;
+}
+
+#U_video1[type="button"]:hover, #U_video2[type="button"]:hover, #U_video3[type="button"]:hover, 
+#U_video4[type="button"]:hover, #U_video5[type="button"]:hover{
+        overflow: visible;
+        width: 200px;
+        -webkit-transition: 0.25s all ease-in-out;
+        -moz-transition: 0.25s all ease-in-out;
+        -ms-transition: 0.25s all ease-in-out;
+        -o-transition: 0.25s all ease-in-out;
+        transition: 0.25s all ease-in-out;
+        vertical-align:top;
+}
+
+.vidButton
+{
+    position: relative;
+    z-index: 99999; 
+}
+
+#U_Comment_div {
+	margin-top:30px;
+	width:100%;
+	min-width:300px;
+}
+#U_seek {
+	height:30px;
+	width:60px; 
+	background-color:#002147;
+	color: white;
+	font-size:12px;
+	padding:5px;
+	margin-top:0px;
+	font-weight:900;
+}
+#U_start, #U_end {
+	height:30px;
+	width:100px; 
+	background-color:#002147;
+	color: white;
+	font-size:12px;
+	padding:5px;
+	margin-top:5px;
+	margin-bottom:5px;
+	font-weight:900;
+}
+#U_seekToTime{
+	width:68px;
+	height:20px;
+}
+#U_startTime_tb, #U_endTime_tb {
+	width:70px;
+	height:20px;
+	font-weight:800;
+}
+#U_comment {
+	width:98%;
+	height:80px;
+	border:2px solid #002147;
+	border-radius: 10px;
+}
+#U_submit_comment {
+	background-color:#B60E16;
+	color:white;
+	height:30px;
+	margin-top:-10px;
+	float:right;
+	font-weight: 900;
+	padding:5px;
+	margin-right:20px;
+}
+
+#P_submit_comment {
+	background-color:#B60E16;
+	color:white;
+	height:30px;
+	margin-top:-10px;
+	float:right;
+	font-weight: 900;
+	padding:5px;
+	margin-right:20px;
+}
+#U_comments {
+        display: inline-block;
+	width:54.6%;
+	min-width:100px;
+	top:164px;
+}
+#U_submittedComments_div{
+	background-color:#bbb; 
+	height:500px;
+	width:100%;
+	padding:5px;
+	overflow:auto;
+	font-size:20px;
+	word-wrap:break-word;
+	border-radius:10px;
+}
+#U_submittedComments{
+	background-color:#bbb; 
+	height:825px;
+	padding:5px;
+	overflow:auto;
+	word-wrap:break-word;
+	font-size:16px;
+	border-radius:10px;
+}
+#U_submit_all {
+	background-color: #B60E16;
+	float:right;
+	height:40px;
+	padding:10px; 
+	margin:10px;
+	border:2px solid #002147;
+	color:white;
+	font-weight:900; 
+	font-size: 18px;
+}
+
+/* R_View Survey styling */
+#R_title {
+	padding:10px;
+	min-width:600px;
+	height:60px;
+	font-size:25px;
+}
+#R_user {
+	position:absolute;
+	margin:-30px;
+	right:45px;
+	color:#444;
+}
+#R_prompt {
+	margin:-20px;
+	width:98%;
+	margin-top:-40px;
+	margin-left:5px;
+	margin-bottom: 10px;
+	padding: 10px;
+	border: 2px solid;
+	border-color: #000000;
+	font-size:16px;
+	border-radius: 10px;
+	min-width: 600px;
+	height:40px;
+	overflow:auto;
+}
+#R_body {	
+	display:block;
+	position:relative;
+	width:46%;
+	height:100%;	
+}
+#R_videoButtons {
+	width: 100%;
+	height:330px;
+	padding:5px;
+	background-color:#bbb;
+	min-width:300px;
+	max-width: 600px;
+	border-radius: 10px;
+}
+#player {
+        display: inline-block;
+	width:80%;
+	height:320px;
+}
+#R_fiveVideos {
+	width:13%;
+	float:right;
+	margin-right:10px;
+	margin-top:40px;
+	height:340px;
+}
+#R_video1, #R_video2, #R_video3, #R_video4, #R_video5 {
+	height:40px;
+	width:100%; 
+	background-color:#002147;
+	color: white;
+	font-size:14px;
+	padding:5px;
+	margin-top:10px;
+	font-weight:500;
+}
+#R_Comment_div {
+	margin-top:10px;
+	width:100%;
+	min-width:300px;
+}
+#R_seek {
+	height:30px;
+	width:60px; 
+	background-color:#002147;
+	color: white;
+	font-size:12px;
+	padding:5px;
+	margin-top:0px;
+	font-weight:800;
+}
+#R_start, #R_end {
+	height:30px;
+	width:100px; 
+	background-color:#002147;
+	color: white;
+	font-size:12px;
+	padding:5px;
+	margin-top:5px;
+	margin-bottom:5px;
+	font-weight:800;
+}
+#R_seekToTime{
+	width:68px;
+	height:20px;
+}
+#R_startTime_tb, #R_endTime_tb {
+	width:70px;
+	height:20px;
+	font-weight:800;
+}
+#R_comment {
+	width:98%;
+	height:80px;
+	border:2px solid #002147;
+	border-radius: 10px;
+}
+#R_submit_comment {
+	background-color:#B60E16;
+	color:white;
+	height:40px;
+	margin-top:-10px;
+	float:right;
+	font-weight: 900;
+	font-size:18px;
+	padding:10px;
+	margin-right:20px;
+}
+#R_comments {
+	width:50%;
+	min-width:100px;
+	right:25px;
+	top:164px; 
+	position:absolute;
+}
+#R_submittedComments{
+	background-color:#bbb; 
+	height:500px;
+	width:100%;
+	padding:5px;
+	margin:5px;
+	overflow:auto;
+	word-wrap:break-word;
+	border-radius:10px;
+}
+#R_submittedComments_div {
+	min-width:100px;
+	padding:10px;
+	width:47%;
+	height:480px;
+	background-color:#999;
+	border-radius:10px;
+	overflow:auto;
+	font-size:20px;
+	word-wrap:break-word;
+}
+#R_U_submittedComments {
+	min-width:100px;
+	width:45%;
+	height:400px;
+	background-color:#999;
+	border-radius:10px;
+	overflow:auto;
+	word-wrap:break-word;
+	position:absolute;
+	padding:5px;
+	top:40px;
+	font-size:16px;
+	border-radius:10px;
+}
+#R_CommentsOnUser_div{
+	min-width:100px;
+	width:47%;
+	height:480px;
+	padding:10px;
+	background-color:#ccc;
+	border-radius:10px;
+	overflow:auto;
+	word-wrap:break-word;
+	position:absolute;
+	top:10px;
+	right:-10px;
+	font-size:20px;
+	border-radius:10px;
+}
+#R_CommentsOnUser{
+	min-width:100px;
+	width:90%;
+	height:400px;
+	background-color:#ccc;
+	border-radius:10px;
+	overflow:auto;
+	word-wrap:break-word;
+	position:absolute;
+	padding:5px;
+	top:40px;
+	font-size:16px;
+	border-radius:10px;
+}
+#R_Checkbox_div {
+	padding:0px;
+	position:absolute;
+	bottom:75px;	
+	left:-5px;
+	font:10px;
+}
+#R_getComments {
+	padding:5px;
+	position:absolute;
+	bottom:80px;	
+	left:20px;
+}
+#R_buttonGetComments {
+	background-color:#002147;
+	color:white;
+	height:30px;
+	margin:20px;
+	margin-left:0px;
+}
+#R_checkbox_A, #R_checkbox_B, #R_checkbox_All {
+	height:16px;
+	width:18px;
+	margin-left:20px;
+}
+#R_submit_all {
+	background-color:#B60E16;
+	float:right;
+	height:40px;
+	padding:10px; 
+	margin:10px;
+	border:2px solid #002147;
+	color:white;
+	font-weight:900; 
+	font-size: 18px;
+}
+
+.R_reply_button {
+    border: 1px solid;
+    padding: 3px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.R_reply_emptyblock {
+    width: 85%;
+    margin-left:13.3%;
+}
+
+.R_reply_viewableto{
+    width: 100%;
+}
+
+.R_reply_textbox {
+    width: 100%;
+}
+
+.R_reply_block{
+    width: 85%;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 10px;
+    margin-left: 13.3%;
+    padding: 10px;
+    background-color: white;
+}
+
+.R_reply_reply_block{
+    width: 85%;
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 10px;
+    margin-left: 21.3%;
+    margin-right: 12px;
+    padding: 10px;
+    background-color: white;
+}
+
+
+.R_reply_label {
+    color: red;
+}
+
+.submitted_Com {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px; 
+    background-color: white;
+}
+
+.timeSection {
+    display: inline-block;
+    vertical-align: top;
+    width: 15%; 
+    margin-right: 5%;
+}
+        
+.commentSection {
+    display: inline-block;
+    width: 79%;
+}
+       
+.table-indent {
+    padding-left: 20px;
+}
+
+ul
+{
+    list-style-type: none;
+}
+.comment_box
+{
+background-color:#D3E7F5; border-bottom:#ffffff solid 1px; padding-top:3px
+}
+        ol.timeline
+        {list-style:none;font-size:1.2em;}ol.timeline li{ position:relative;padding:.7em 0 .6em 0;  height:45px; border-bottom:#dedede dashed 1px}ol.timeline li:first-child{border-top:1px dashed #dedede;}
+        .comment_button
+        {
+        margin-right:30px; margin-top:30px; background-color:#dedede; color:#000; border:#000 solid 2px; padding:3px;font-weight:bold; font-size:11px; font-family:Arial, Helvetica, sans-serif
+        }
+        .edit_button
+        {
+        margin-right:30px; margin-top:30px; background-color:#dedede; color:#000; border:#000 solid 2px; padding:3px;font-weight:bold; font-size:11px; font-family:Arial, Helvetica, sans-serif
+        }
+        .comment_submit
+        {
+        background-color:#3b59a4; color:#FFFFFF; border:none; font-size:11px; padding:3px; margin-top:3px;
+        }
+        .panel
+        {
+        margin: 10px 10px 10px 13.3%; background-color:#D3E7F5; height:45px; padding:6px; width:400px;
+        display:none;//margin-left:50px; margin-right:50px; margin-bottom:5px;
+        }
+        .load_comment
+        {
+        margin-left:50px; margin-right:50px; margin-bottom:5px; background-color:#D3E7F5; height:25px; padding:6px; width:400px; font-size:14px;
+
+        }
+        .flash_load
+        {
+        margin-left:50px; margin-right:50px; margin-bottom:5px;height:20px; padding:6px; width:400px; 
+        display:none;	}
+
+        div.hidden { display: none }
+
+        
+textarea#U_comment:focus{
+    outline:none;
+    border-color:blue;
+}

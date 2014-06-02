@@ -1,0 +1,10 @@
+form label.error, label.error, #error {
+    color: red;
+    font-style: italic;
+    font-weight: lighter;
+    padding: 10px;
+}
+div.error { display: none; }
+input.checkbox { border: none }
+input:focus { border: 1px dotted black; }
+input.error { border: 1px dotted red; }    

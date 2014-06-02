@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head >
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<div id="title" style="text-align:center">
+<b>Violin Solo</b><br><br></div>
+<div id="question">
+<b>Question:</b> What did you think about the violin solo in these 12 bars?<br><br>
+</div>
+<div id="player"></div><br><br>
+<script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    startTime = 30; 
+    endTime = 60;
+
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '600',
+          videoId: 'o1dBg__wsuo#t=20',
+         events: {
+         'onReady': startPlayer
+         }
+        });
+    }
+ 
+    function startPlayer() {
+	var comment_startTime = startTime; 
+	var comment_endTime = endTime; 
+	var videoId= 'o1dBg__wsuo#t=20';
+	player.loadVideoById({'videoId': videoId, 'startSeconds': startTime, 'endSeconds': endTime}); 
+	var start = document.getElementById("span_startTime");
+	start.innerHTML = "The start time is: " + startTime + ".000 seconds.";
+	var end = document.getElementById("span_endTime");
+	end.innerHTML = "The end time is: " + endTime + ".000 seconds.";
+    }
+
+function setStartTime() {
+var sTime = player.getCurrentTime();
+var start = document.getElementById("span_startTime");
+start.innerHTML = "The start time is: " + sTime + " seconds.";
+}
+function setEndTime() {
+var eTime = player.getCurrentTime();
+var end = document.getElementById("span_endTime");
+end.innerHTML = "The end time is: " + eTime + " seconds.";
+}
+function restart() {
+player.seekTo(startTime, true);
+}
+function seekTo() {
+var seekTime = document.question.seekToTime;
+if ((startTime <= seekTime.value) && (seekTime.value<=endTime)) {
+   player.seekTo(seekTime.value, true);
+   var textAlert = document.getElementById("alert");
+   textAlert.innerHTML = "";
+}
+else {
+var textAlert = document.getElementById("alert");
+textAlert.innerHTML = "Please select another time!";
+}
+seekTime.value="";
+}
+function submitComment() {
+var comment = document.question.comment;
+c_startTime = startTime;
+c_endTime = endTime;
+comment.value="";
+}
+
+</script></head><br>
+<body>
+<form name="question">
+Seek to: <input type="text" name="seekToTime" style="width:25px"> seconds. <input type="button" value="Seek!" onclick="seekTo();">
+<span id="alert"></span><br>
+<input type="button" value="Restart!" onclick="restart();">
+<br><br>
+<span id="span_startTime">The start time is: </span><br>
+<input type="button" value="Click!" onclick="setStartTime();">to reset start time.<br><br> 
+<span id="span_endTime">The end time is: </span><br>
+<input type="button" value="Click!" onclick="setEndTime();">to reset end time.
+<br><br>
+Please add a comment in the below textbox. You can select a start and stop <br> time by clicking on the respective buttons above at the time you want. <br>
+<textarea name="comment" rows="6" cols="83"></textarea><br><br>
+<input type="button" value="Submit comment!" onclick="submitComment();"><br>
+</form>
+</body>
+</html>

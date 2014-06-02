@@ -1,0 +1,348 @@
+<head>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+	->prependStylesheet($this->basePath() . '/css/survey/view.css')
+?>
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+	->prependStylesheet($this->basePath() . '/css/survey/custom.css')
+?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+<?php echo $this->headScript()
+       ->prependFile($this->basePath() . '/js/survey/custom.js')
+?>
+<?php echo $this->headScript()
+        ->prependFile($this->basePath() . '/js/survey/view.js')
+?>
+</script>
+<style type="text/css">
+ul
+{
+    list-style-type: none;
+}
+.comment_box
+{
+background-color:#D3E7F5; border-bottom:#ffffff solid 1px; padding-top:3px
+}
+	ol.timeline
+	{list-style:none;font-size:1.2em;}ol.timeline li{ position:relative;padding:.7em 0 .6em 0;  height:45px; border-bottom:#dedede dashed 1px}ol.timeline li:first-child{border-top:1px dashed #dedede;}
+	.comment_button
+	{
+	margin-right:30px; margin-top:30px; background-color:#dedede; color:#000; border:#000 solid 2px; padding:3px;font-weight:bold; font-size:11px; font-family:Arial, Helvetica, sans-serif
+	}
+        .comment_showbutton
+	{
+	margin-right:30px; margin-top:30px; background-color:#dedede; color:#000; border:#000 solid 2px; padding:3px;font-weight:bold; font-size:11px; font-family:Arial, Helvetica, sans-serif
+	}
+	.edit_button
+	{
+	margin-right:30px; margin-top:30px; background-color:#dedede; color:#000; border:#000 solid 2px; padding:3px;font-weight:bold; font-size:11px; font-family:Arial, Helvetica, sans-serif
+	}
+	.comment_submit,.r_comment_submit,.r_r_comment_submit
+	{
+	background-color:#3b59a4; color:#FFFFFF; border:none; font-size:11px; padding:3px; margin-top:3px;
+	}
+	.panel
+	{
+	margin: 10px 10px 10px 5.3%; background-color:#FFFFFF; height:auto; padding:6px; width:400px;
+	display:none;//margin-left:50px; margin-right:50px; margin-bottom:5px;
+	}
+        .panel1
+	{
+	margin: 10px 10px 10px 5.3%; background-color:#FFFFFF; height:auto; padding:6px; width:400px;
+	display:none;//margin-left:50px; margin-right:50px; margin-bottom:5px;
+	}
+        .r_panel
+	{
+	margin: 10px 10px 10px 23.3%; background-color:#FFFFFF; height:auto; padding:6px; width:400px;
+	display:none;//margin-left:50px; margin-right:50px; margin-bottom:5px;
+	}
+	.load_comment
+	{
+	margin-left:50px; margin-right:50px; margin-bottom:5px; background-color:#D3E7F5; height:25px; padding:6px; width:400px; font-size:14px;
+
+	}
+	.flash_load
+	{
+	margin-left:50px; margin-right:50px; margin-bottom:5px;height:20px; padding:6px; width:400px; 
+	display:none;	}
+        
+        div.hidden { display: none }
+</style>
+</head>
+<body>
+    <?php 
+     	$survey =$this->layout()->survey;
+        $project = $survey['project'];
+?>
+    <div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$project->id)); ?>">
+                    <?php echo $project->name; ?></a> > <span id="current"><?php echo $survey['title']; ?></span>
+    </p>    
+    </div>
+    <div id="surveyView">
+    <div>
+<h1>View Survey</h1>
+
+    <?php 
+        $user = $this->layout()->currentUser;
+        $currentUserAr =$this->layout()->currentUserAr;
+        $primaryResearcher = $survey['project']->primaryResearcher;
+        $researchers = $survey['project']->researchers;
+        $currentMember = $this->layout()->currentMember;
+        if(!$currentMember['isResearcher']){
+          $isSurveySubmitted =$this->layout()->isSurveySubmitted;
+        }
+    ?>
+    <?php if(!$currentMember['isResearcher'] && $isSurveySubmitted){?>
+    <h1>You have already submitted the survey. Go to the project : <a href="<?php echo $this->url('project', array('controller'=>'project','action'=>'view', 'id'=>$project->id));?>"><?php echo $project->name; ?></a></h1>
+    <?php } else{ ?>
+    <div id="user_id" class="hidden"><?php echo $currentUserAr['id']; ?></div>
+    <div id="res_id" class="hidden"><?php echo $primaryResearcher->id; ?></div>
+    <div id="surveyId" class="hidden"><?php echo $survey['id']; ?></div>
+
+<div id="U_prompt">
+    <div id="U_prompt_label"><b>Prompt:</b></div><?php echo $survey['prompt'];?>
+</div>      <br/>  
+<div id="U_body">
+<!--video+5 buttons-->
+<div id="U_videoButtons"> 
+   <!--YouTube player-->
+   <div id="player" style="width: 441px">
+   </div>
+   <!--five video buttons-->
+   <div id="U_fiveVideos">
+       <?php $num =1;foreach($survey['recording']->videos as $video) { 
+           if($video->offsetTime == 0){
+               $masterVideo = $video->link;
+               $masterSTime = $video->startTime;
+               $masterETime = $video->endTime;
+               $masterOffset = $video->offsetTime; ?>
+       <div id="masterVideo" class="hidden"><?php echo $masterVideo;?></div>
+       <div id="masterSTime" class="hidden"><?php echo $masterSTime;?></div>
+       <div id="masterETime" class="hidden"><?php echo $masterETime;?></div>
+       <div id="masterOffset" class="hidden"><?php echo $masterOffset;?></div>
+          <?php }
+           ?>
+      <input class="vidButton" type="button" id="U_video1" value="<?php echo $video->name;?>"  
+      onclick="newVideo(<?php echo "'$video->link'" ?>, <?php echo "'$video->startTime'" ;?>,<?php echo "'$video->endTime'" ;?>,<?php echo "'$video->offsetTime'" ;?>);return false;">
+
+       <?php } ?>
+   </div>
+</div>
+
+<!--everything div-->
+<form name="question" id="commentForm">
+<div id="U_Comment_div"> 
+
+       
+       <div id="U_Comment_Times">
+           
+      <!--<input type="button" id="U_seek" value="Seek to:" onclick="seekTo();return false;"> 
+      <input type="text" id="U_seekToTime" placeholder="hh:mm:ss" onfocus="this.value= ''">-->
+           
+      <input type="button"  id="U_start" value="Start Comment:" onClick="setStartTime();return false;">
+      <input type="text" id="U_startTime_tb" placeholder="hh:mm:ss" onKeyPress="enter_Time();">
+      <input type="button" id="U_end" value="End Comment:" onClick="setEndTime();return false;">
+      <input type="text" id="U_endTime_tb" placeholder="hh:mm:ss" onKeyPress="enter_Time();"><br> 
+      
+       </div>
+      <div id="defaultEndTime" style="display:none">Do you want to select default End Comment Time. <button id="defaultEndCommentYes">yes</button> <button id="defaultEndCommentNo">no</button></div>
+       <div id="U_Comment_Com">
+           <br><b>Please add a comment in the below textbox. You can select a start and stop time by clicking on the respective buttons above at the time you want.</b> <br><br>
+           <div id="Comment_Alert"></div>
+           <textarea type="comment" id="U_comment" value="" autofocus ></textarea><br><br>
+      <!--onKeyPress="enter_Comment(event);"-->
+            <div id="View_Alert"></div>
+            
+            <?php if($currentMember['isResearcher']){
+                if(count($researchers)>0){
+                if($survey['rToRComments'] != "none") { 
+                if($survey['rToRComments'] == "all"){ $view = true;}else { $view = false;}?>
+            <b>This comment is viewable to:</b><br>
+            Researchers:<br>
+            <ul>               
+                <li><input type="checkbox" id="selectall" value="" checked="checked" <?php if($view){ ?> disabled="disabled" <?php } ?> >All<li>
+                    <?php if($currentMember['id'] != $primaryResearcher->id){ ?>
+                    <li> <input id="p_checkbox" type="checkbox" name="checkbox1" value=<?php echo $primaryResearcher->id; ?> disabled="disabled" checked="checked"><?php echo $primaryResearcher->user->name; //echo "($primaryResearcher->userName)" ; ?>(Primary Researcher)</li>
+                    <?php } ?>
+                       
+                    <?php foreach($researchers as $researcher){ 
+                    
+                    if($currentMember['id'] != $researcher->id){
+                        if($researcher->id != $primaryResearcher->id) {?>
+                    <li> <input class="checkbox1" type="checkbox" name="checkbox1" value=<?php echo $researcher->id; ?> checked="checked"  <?php if($view){ ?> disabled="disabled" <?php } ?> ><?php echo $researcher->user->name; //echo "($researcher->userName)" ;  ?></li>
+                        <?php } else { ?>
+                    <li> <input class="checkbox1" type="checkbox" name="checkbox1" value=<?php echo $researcher->id; ?> checked="checked"  <?php if($view){ ?> disabled="disabled" <?php } ?> ><?php echo $researcher->user->name; //echo "($researcher->userName)" ; ?></li>
+                        <?php  } } } ?>
+            </ul>
+            <?php } else{ ?>
+            <!--<b>This comment is viewable to:</b><br> Only You-->
+            <div class="hidden">
+                <ul>
+                    <li> <input class="checkbox1" type="checkbox" name="checkbox1" value=<?php echo $primaryResearcher->id; ?> checked="checked"><?php echo $primaryResearcher->user->name;?></li>
+                </ul>
+            </div>
+            <?php  } ?>
+            <?php  } ?>
+            <input type="submit" id="U_submit_comment" value="Add comment"><br><br>
+            </div>
+                <?php  }else{ 
+                if($survey['pToPComments'] == "yes"){?>
+            <b>This comment is viewable to:</b><br>
+            Other Participants:<br>
+             
+            <ul>
+                <li><input type="radio" name="viewable" value="TRUE">Yes</li>
+                <li><input type="radio" name="viewable" value="FALSE">No</li>
+            </ul>
+             <?php } else { ?>
+            <div class="hidden">
+            <ul>
+                <li><input type="radio" name="viewable" value="TRUE" >Yes</li>
+                <li><input type="radio" name="viewable" value="FALSE" checked="checked">No</li>
+            </ul>
+            </div>
+             <?php } ?>
+            <input type="submit" id="P_submit_comment" value="Add comment" ><br><br>
+            </div>
+            <?php } ?>
+      </form>
+</div>
+</div>
+
+<!--comments+submit_all button-->
+<div id="U_comments"> 
+    <?php if(!$currentMember['isResearcher']){ ?>
+    <?php if($survey['pToPComments'] == "yes") { ?>
+    <label><input id="rdb2" type="checkbox" name="pCommentsToggler" value="otherComments" />View Other Participant Comments</label>
+    <?php }} else {?>
+    <label><input id="rdb3" type="radio" name="rCommentsToggler" value="researcherComments" checked />View Researchers' Comments</label>
+    <label><input id="rdb4" type="radio" name="rCommentsToggler" value="participantActiveComments" />View Participants' Active Comments</label>
+    <label><input id="rdb5" type="radio" name="rCommentsToggler" value="participantSubmittedComments" />View Participants' Submitted Comments</label>
+    <label><input id="rdb5" type="radio" name="rCommentsToggler" value="AllComments" />View All Comments</label>
+    <?php } ?> <br/>
+  <div id="U_submittedComments">
+      <?php if(!$currentMember['isResearcher']){ 
+          $pComments =$this->layout()->pComments;
+          foreach($pComments as $pComment){
+          ?>
+          <?php if($pComment['participant']->id == $currentMember['id']) { ?>
+            <div class="submitted_Com selfComments"><b><?php echo $pComment['startTime'];?> - <?php echo $pComment['endTime'];?>  </b><?php echo $currentMember['userName'];?><p  id="comment<?php echo $pComment['id'];?>"><?php echo $pComment['text'];?></p><button class="edit_button"  id="edit<?php echo $pComment['id']; ?>">Edit</button></div>
+          <?php } else{ 
+            if($pComment['status'] == "submitted"){ ?>
+            <div class="submitted_Com otherComments" style="display:none"><b><?php echo $pComment['startTime'];?> - <?php echo $pComment['endTime'];?>  </b><?php echo $pComment['participant']->userName;?><p><?php echo $pComment['text'];?></p></div>
+           
+          <?php } } } } ?>
+            
+            
+         <?php if($currentMember['isResearcher']){
+             $rComments =$this->layout()->rComments;
+             foreach($rComments as $rComment){
+         ?>
+            <div class="submitted_Com researcherComments rTopComment"><b><?php echo $rComment['startTime']; ?> - <?php echo $rComment['endTime'];?> </b><?php echo $rComment['researcher']->user->name; // echo $reply['researcher']->userName?>
+                <p id="comment<?php echo $rComment['id'];?>"><?php echo $rComment['text'];?></p>
+                <a href="#" class="comment_button" id="<?php echo $rComment['id']?>">Comment</a>
+                <a href="#" class="comment_showbutton show<?php echo $rComment['id'];?>" id="<?php echo $rComment['id']?>" style="display:none">Show Replies</a> 
+                <?php if($currentMember['id'] == $rComment['researcher']->id) { ?><button class="edit_button"  id="edit<?php echo $rComment['id']; ?>">Edit</button> <?php } ?>
+            </div>
+            <?php foreach($rComment['replys'] as $reply){ ?>
+            <div class="R_reply_block researcherComments rFirstTierComment<?php echo $rComment['id']; ?>"><b><?php echo $reply['researcher']->user->name;// echo $reply['researcher']->userName ?></b>
+                <p id="comment<?php echo $reply['id'];?>"><?php echo $reply['text'];?></p>
+                <?php if($currentMember['id'] == $reply['researcher']->id) { ?><button class="edit_button"  id="edit<?php echo $reply['id']; ?>">Edit</button> <?php } ?>
+            </div>
+           <?php  }  ?>
+            
+            <div id="loadplace<?php echo $rComment['id']; ?>"></div>
+            <div id="flash<?php echo $rComment['id']; ?>" class="flash_load"></div>
+            <div class="panel" id="slidepanel<?php echo $rComment['id']; ?>"><form action="" method="post" name="<?php echo $rComment['id']; ?>"><textarea style="width:390px;height:auto" id="textboxcontent<?php echo $rComment['id']; ?>" ></textarea><br /><input type="submit" value="Comment_Submit"  class="comment_submit" id="<?php echo $rComment['id']; ?>"/></form></div>
+            <?php  } ?>
+            
+            <?php $pComments =$this->layout()->pCommentsWithReplys;
+          foreach($pComments as $pComment){  ?>
+            <?php if($pComment['status'] == "submitted"){ ?>
+            <div class="submitted_Com participantSubmittedComments pTopComment" style="display:none"><b><?php echo $pComment['startTime']; ?> - <?php echo $pComment['endTime'];?> </b><?php echo $pComment['participant']->userName;?><p><?php echo $pComment['text'];?></p><a href="#" class="comment_button" id="<?php echo $pComment['id']?>">Comment</a><a href="#" class="comment_showbutton show<?php echo $pComment['id']?>" id="<?php echo $pComment['id']?>" style="display:none">Show Replies</a></div>
+            <?php foreach($pComment['replys'] as $reply){?>
+            <div class="R_reply_block participantSubmittedComments pFirstTierCommentedit-comment-id" style="display:none"><b><?php echo $reply['researcher']->user->name; //echo $reply['researcher']->userName ?></b>
+                <p id="comment<?php echo $reply['id'];?>"><?php echo $reply['text'];?></p><a href="#" class="comment_button" id="<?php echo $reply['id']?>">Comment</a><a href="#" class="comment_showbutton show<?php echo $reply['id'] ?>" id="<?php echo $reply['id']?>" style="display:none">Show Replies</a>
+                <?php if($currentMember['id'] == $reply['researcher']->id) { ?><button class="edit_button"  id="edit<?php echo $reply['id']; ?>">Edit</button> <?php } ?>
+            </div>
+            
+            <?php foreach($reply['replys'] as $r_reply){?>
+            <div class="R_reply_reply_block participantSubmittedComments pSecondTierComment<?php echo $pComment['id']; ?> pfSecondTierComment<?php echo $reply['id']; ?>" style="display:none"><b><?php echo $r_reply['researcher']->user->name;// echo $reply['researcher']->userName ?></b>
+                <p id="comment<?php echo $r_reply['id'];?>"><?php echo $r_reply['text'];?></p>
+                <?php if($currentMember['id'] == $r_reply['researcher']->id) { ?><button class="edit_button"  id="edit<?php echo $r_reply['id']; ?>">Edit</button> <?php } ?>
+            </div>
+            <?php } ?>
+            <div id="loadplace<?php echo $reply['id']; ?>"></div>
+            <div id="flash<?php echo $reply['id']; ?>" class="flash_load"></div>
+            <div class="r_panel" id="slidepanel<?php echo $reply['id']; ?>"><form action="" method="post" name="<?php echo $reply['id']; ?>"><textarea style="width:390px;height:23px" id="textboxcontent<?php echo $reply['id']; ?>" ></textarea><br /><input type="submit" value="Comment_Submit"  class="r_r_comment_submit <?php echo $pComment['id']; ?>" id="<?php echo $reply['id']; ?>"/></form></div>
+            <?php } ?>
+            <div id="loadplace<?php echo $pComment['id']; ?>"></div>
+            <div id="flash<?php echo $pComment['id']; ?>" class="flash_load"></div>
+            <div class="panel1" id="slidepanel<?php echo $pComment['id']; ?>">
+            <form action="" method="post" name="<?php echo $pComment['id']; ?>">
+                <div id="list">
+                    <b>This comment is viewable to:</b><br>
+            Researchers:<br>
+                    <ul>               
+                    <!--<li><input type="checkbox" id="rSelectall" value="" checked="checked">All<li>-->
+                    <?php if($currentMember['id'] != $primaryResearcher->id){ ?>
+                    <li> <input id="r_checkbox<?php echo $pComment['id']; ?>" type="checkbox" name="rcheckbox" value=<?php echo $primaryResearcher->id; ?> disabled="diaabled" checked="checked"><?php echo $primaryResearcher->user->name; //echo "($primaryResearcher->userName)" ; ?>(Primary Researcher)</li>
+                    <?php } ?>
+                       
+                    <?php foreach($researchers as $researcher){ 
+                    
+                    if($currentMember['id'] != $researcher->id){
+                        if($researcher->id != $primaryResearcher->id) {?>
+                    <li> <input class="checkbox1" type="checkbox" name="rcheckbox" value=<?php echo $researcher->id; ?> checked="checked"><?php echo $researcher->user->name; //echo "($researcher->userName)" ;  ?></li>
+                        <?php } else { ?>
+                    <li> <input class="checkbox1" type="checkbox" name="rcheckbox" value=<?php echo $researcher->id; ?> checked="checked"><?php echo $researcher->user->name; //echo "($researcher->userName)" ; ?></li>
+                        <?php  } } } ?>
+                    </ul>
+                </div>
+                    <textarea style="width:390px;height:50px" id="textboxcontent<?php echo $pComment['id']; ?>" ></textarea><br />
+                    <input type="submit" value="Comment_Submit"  class="r_comment_submit" id="<?php echo $pComment['id']; ?>"/>
+                    </form>
+            </div>
+            <?php } else{ ?>
+            <div class="submitted_Com participantActiveComments" style="display:none"><b><?php echo $pComment['startTime']; ?> - <?php echo $pComment['endTime'];?> </b><?php echo $pComment['participant']->userName;?><p><?php echo $pComment['text'];?></p></div>
+               <?php } ?> 
+                <?php } ?>
+         <?php } ?>
+     <!-- <div id="update">
+        <form method="POST" action="<?php echo $this->url('comment',
+            			array('controller'=>'comment','action'=>'addResearcherVideoComment')); ?>" >
+             <input type="text" name="text" value="vhvnhvjhmvjmnhvmjhnvmhnvh gchgchgv"/>
+             <input type="text" name="surveyId" size="100" value="<?php echo $survey['id']; ?>"/>
+             <input type="text" name="startTime" size="100" value="00:04:05"/>
+             <input type="text" name="endTime" size="100" value="00:04:15"/>
+             <input type="text" name="viewers" size="100" value=""/>
+             <input type="submit" value="Submit">
+         </form>
+ 
+  </div>-->
+      </div>
+    
+    <div id="edit-form" title="Edit Comment">
+    <div id="content" > </div>
+  <form name="editForm" id="editForm">
+    <label>Edit Comment</label>
+    <textarea cols="50" name="edit-comment" id="edit-comment" class="text ui-widget-content ui-corner-all" ></textarea><br/>
+    <div type="hidden" name="edit-comment-id" id="edit-comment-id" class="text ui-widget-content ui-corner-all" ></div>
+    </form>
+</div>
+    <?php if(!$currentMember['isResearcher']){ ?>
+    <div id="dialog-confirm" title="Submit Survey">
+  
+    </div>
+   <div>
+       <input id="U_submit_all" value="Complete Survey" type="submit"/>
+    </div>
+      <?php } ?>
+
+</div>
+</div>
+    <?php } ?>
+</body>

@@ -1,0 +1,62 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('MERID')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink()
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') 
+				?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/JSON.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+        
+    </head>
+	<header>
+            <?php $user = $this->layout()->currentUser; ?>
+        <!--<?php // } ?>-->
+        <!-- Merid LOGO -->
+        <img id="logo" src="<?php echo $this->basePath('img/MERIDlogo.png'); ?>" alt="MERIDlogo"/>
+        <?php if($user){?>
+        <a class="homebutton" href="<?php echo $this->url('project',
+            array('controller'=>'project','action'=>'viewAll'));?>"><img id="homebutton" src="<?php echo $this->basePath('img/homebutton.png'); ?>" alt="home"/></a>
+        <div id="rpname" class="headeroptions"> <?php echo $user->name; if($user->isResearcher){echo " (Researcher)";}else{ echo " (Participant)";}?></div>
+        <a id="logoutbutton" href="/user/logout">Log Out</a>
+        <a id="editaccbutton" href="/user/edit">Edit Account</a>
+        <!--
+        <a id="logoutbutton" class="headeroptions" href="/user/logout">Log Out</a><br/>
+        <a id="editaccbutton" class="headeroptions" href="/user/edit">Edit Account</a>
+        -->
+        <?php } ?>
+	</header>
+        
+	<body>
+            <div class="container">
+                <?php echo $this->content; ?>
+                <?php echo $this->inlineScript() ?>
+            </div> <!-- /container -->
+        
+        </body>
+	
+	<footer>
+            <a class="footerlinks" href="<?php echo $this->url('index',
+            array('controller'=>'index','action'=>'contactUs'));?>">Contact Us</a>
+            <p>&copy; 2013 - <?php echo date('Y') ?> MERID at Cornell University</p>
+        </footer>
+	
+</html>

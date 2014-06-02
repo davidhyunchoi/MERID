@@ -1,0 +1,63 @@
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/project/edit.css')
+        ->prependStylesheet($this->basePath() . '/css/survey/custom.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->prependFile($this->basePath() . '/js/survey/custom.js')
+        ?>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile($this->basePath() . '/js/project/edit.js')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+
+<?php 
+      $project = $this->layout()->project;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$project['id'])); ?>">
+                <?php echo $project['name']; ?></a> > <span id="current">Edit</span>    
+    </p>    
+</div>
+    <div id="projectId" class="hidden"><?php echo $project['id']; ?></div>
+   <a id="deleteProject" class="delete_prj" href="#">Delete project </a>
+
+<h1>Edit Project</h1>
+<form name="editproject" id="editproject" method="POST" action="<?php echo $this->url('project',
+            			array('controller'=>'project','action'=>'editHandler','id'=>$project['id'])); ?>">
+    <p>    
+    <fieldset>
+            Project Name: <input name='name' size="100" type="text" value=<?php echo '"'.$project['name'].'"'; ?>/> <br/><br/>
+        
+            Orchestra Name: <input name='orchestraName' size="100" type="text" value=<?php echo '"'.$project['orchestraName'].'"'; ?>/> <br/><br/>
+            
+            Institution: <input name='institution' size="100" type="text" value=<?php echo '"'.$project['institution'].'"'; ?>/><br/><br/>
+    
+            Project Description: <textarea name="description" rows="10" cols="102"><?php echo $project['description']; ?></textarea> <br/><br/>
+   
+            Research Rationale: <textarea name="rationale" rows="10" cols="102"><?php echo $project['rationale']; ?></textarea> <br/><br/>
+        
+            Consent Form: <input type="text" value="Consent Form"/> <br/><br/>
+    
+            <input id="editProj" value="Save Changes" type="submit"/>
+    </fieldset>
+    </p>           
+</form>
+
+<a href="<?php echo $this->url('project',
+            array('controller'=>'project','action'=>'view'));?>">Back</a>
+
+<div id="confirm-dialog" title="Delete Project">
+    <p> Once the project is deleted, you cannot access any project information.
+    Are you sure you want to delete the project?</p>
+
+</div>
+
+</html>
+    

@@ -1,0 +1,23 @@
+<?php $this->headLink()
+        ->appendStylesheet("http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+        ->appendStylesheet($this->basePath() . '/css/user/verify.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile($this->basePath() . '/js/user/verify.js')
+?>
+<h3>Verification</h3>
+<?php 
+    $urlCode = $this->layout()->urlCode; 
+?>
+<form id="verificationForm" action="<?php echo $this->url('user',
+            			array('controller'=>'user','action'=>'verificationHandler')); ?>" method="POST">
+
+Please enter verification code: &nbsp;<input type="text" name="code" size="50"/> <br/><br/>
+Set your password:  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="password" type="password" name="password" size="50"/><br/><br/>
+Confirm your password: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" name="confpass" size="50"/><br/><br/>
+
+<input type="hidden" name="urlCode" value="<?php echo $urlCode; ?>"/>
+<input type="submit" value="Verify"/>
+</form>

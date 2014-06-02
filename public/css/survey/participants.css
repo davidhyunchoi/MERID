@@ -1,0 +1,164 @@
+#nav
+{
+    text-indent: 1em;
+    font-weight: bold;
+}
+
+#current
+{
+    font-weight: bold;
+    font-size: 16pt;
+}
+
+a.remove 
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   margin: 1.5px 0px 1.75px -7.5px;
+   text-decoration: none;
+   font-weight: bold;
+   width: 80px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.remove:hover
+{
+    background-color: #acea11;
+}
+
+a.editpts
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   width: 60px;
+   display: inline-block;
+   text-align: center;
+   margin-left: -7.5px;
+}
+
+a.editpts:hover
+{
+   background-color: #acea11;
+}
+
+a.premove 
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   margin: 1.5px 0px 1.75px -7.5px;
+   text-decoration: none;
+   font-weight: bold;
+   width: 80px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.premove:hover
+{
+    background-color: #acea11;
+}
+
+a.peditpts
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   width: 60px;
+   display: inline-block;
+   text-align: center;
+   margin-left: -7.5px;
+}
+
+a.peditpts:hover
+{
+   background-color: #acea11;
+}
+
+
+a.invite
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   width: 85px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.invite:hover
+{
+   background-color: #acea11;
+}
+
+
+
+a.reinstate
+{
+   border: solid 2px #aaa;
+   border-radius: 3px;
+   -moz-border-radius: 3px;
+   -webkit-border-radius: 3px;
+   background-color: #89ba38;
+   color: #000;
+   text-decoration: none;
+   font-weight: bold;
+   width: 85px;
+   display: inline-block;
+   text-align: center;
+}
+
+a.reinstate:hover
+{
+   background-color: #acea11;
+}
+
+td.changers
+{
+    width: 30px;
+}
+
+#surveyParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}
+
+#removedParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}
+
+#notPresentParticipants
+{
+    margin: 0 auto;
+    clear: both;
+    width: 100%;
+}

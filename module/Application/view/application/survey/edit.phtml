@@ -1,0 +1,59 @@
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/survey/edit.css')
+        ->prependStylesheet($this->basePath() . '/css/survey/custom.css')
+?>
+<?php $this->headScript()
+        ->appendFile($this->basePath() . '/js/jquery.js')
+        ->appendFile('http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' , 'text/javascript')
+        ->appendFile('http://code.jquery.com/ui/1.10.4/jquery-ui.js' , 'text/javascript')
+        ->appendFile($this->basePath() . '/js/jquery.validate.js')
+        ->appendFile($this->basePath() . '/js/survey/edit.js')
+        ->appendFile($this->basePath() . '/js/navigate.js')
+?>
+<?php 
+     	$survey =$this->layout()->survey;
+	$surveyId = $this->layout()->surveyId;
+?>
+<div id="nav">
+    <p>
+        > <a href="<?php echo $this->url('project',
+                array('controller'=>'project','action'=>'view','id'=>$survey->project->id)); ?>">
+                <?php echo $survey->project->name; ?></a> > <span id="current">Edit <?php echo $survey->title;?></span>    
+    </p>    
+</div>
+<div id="surveyId" class="hidden"><?php echo $surveyId; ?></div>
+<h1>Edit Survey</h1>
+<div id="wholecontent">
+<div id="side">
+  		<ul>
+    		<div id="options">
+                <li><a class="surveyAction" href="<?php echo $this->url('survey',
+            			array('controller'=>'survey','action'=>'participantsViewAll','id'=>$surveyId));?>">Manage Participants</a></li>
+                <li><a class="surveyAction" href="<?php echo $this->url('survey',
+            			array('controller'=>'survey','action'=>'manageRecordings','id'=>$surveyId)); ?>">Manage Recordings</a></li>
+	        <li><a class="surveyAction" id="deleteSurvey" href="#">Delete survey</a></li>
+	        </div>
+        </ul>
+</div>
+<div id="main">
+<form name="editsurvey" id="editsurvey" method="POST" action="<?php echo $this->url('survey',
+            			array('controller'=>'survey','action'=>'editHandler','id'=>$surveyId)); ?>">
+    <p>
+        <fieldset>
+            Survey Name:
+            <input name="title" size="50" type="text" value="<?php echo $survey->title; ?>"/> <br/><br/>
+            Prompt: 
+            <textarea name="prompt" rows="10" cols="102"><?php echo $survey->prompt; ?></textarea> <br/><br/>
+
+            <input id="editsurv" value="Save Changes" type="submit"/>
+        </fieldset>
+    </p>    
+</form>
+</div>
+ <div id="confirm-dialog" title="Delete Survey">
+    <p> Once the survey is deleted, you cannot access any survey information.
+    Are you sure you want to delete the survey?</p>
+
+</div>
+</div>

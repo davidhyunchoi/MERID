@@ -1,0 +1,66 @@
+<div id="addparticipant">
+
+    <h1> Edit Participant's Account</h1>
+
+<table>
+	<form id='edit_form' action='<?php echo $this->url('projectMember',
+            			array('controller'=>'projectMember','action'=>'editHandler')); ?>' method='post' >
+		<tr>
+			<td><label for='userName'>Username</label></td>
+	    </tr>
+	    <tr>
+			<td><input type='text' name='userName' id='userName' value=''></td>
+		</tr>
+		<tr>
+		    <td><label for='email'>Email</label></td>
+		</tr>
+		<tr>
+	  	    <td><input type='email' name='email' id='email' value=''></td>
+		</tr>
+		<tr>
+			<td>Player Defaults:</td>
+		</tr>
+		<tr>
+			<td><label for='instrument'>Instrument:</label></td>
+		</tr>
+		<tr>
+			<td>
+				<select id="instrument" name="instrument">
+                <?php 
+				$instrumentSet = array('violin1', 'violin2', 'viola', 'cello', 'bass');
+				foreach($instrumentSet as $instr)
+				{
+				?> 
+  					<option value="<?php echo $instr; ?>">Violin I</option>
+				<?php
+				}
+				?>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td><label for='playerNumber'>Player Number:</label></td>
+		</tr>
+		<tr>
+			<td><input type='text' name='playerNumber' id='playerNumber' value=''></td>
+		</tr>
+		<tr>
+			<td><label for='desk'>Desk:</label></td>
+		</tr>
+		<tr>
+			<td><input type='text' name='desk' id='desk' value=''></td>
+		</tr>
+		<tr>
+			<td><label for='playingPart'>Playing Part:</label></td>
+		</tr>
+		<tr>
+			<td><input type='text' name='playingPart' id='playingPart' value=''></td>
+		</tr>
+
+		<tr colspan=2>
+			<td><input id='editeacc' type='submit' value='Edit Account'></td>
+		</tr>
+	</form>
+</table>
+
+</div>

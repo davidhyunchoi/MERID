@@ -1,0 +1,22 @@
+<form id="createacc" method="post" action="<?php echo $this->url('user',
+                        array('controller'=>'user','action'=>'addHandler')); ?>">
+    <div id="option1">
+        <h1>Option 1 <br/> Create Multiple Accounts:</h1>
+        <h4>To create multiple participant accounts, download, complete, and upload this <a href="#">csv form</a></h4>
+
+        <input type="file" id="file" name="file"/> 
+        <input type="submit" id="upload" value="upload csv form"/>
+    </div>	
+
+    <div id="option2">
+        <h1>Option 2 <br/> Create Single Account:</h1>
+            Participant's Email: <input id="email" name="email" type="email"/> <br/><br/>
+
+        Password: <input id="password" name="password" type="password"/><br/>
+        Confirm Password: <input id="password" name="password" type="password"/><br/><br/> 		
+    </div>	
+    <br/>
+    <input type="submit" id="createandinvite" value="Create and Invite"/>
+</form>
+
+

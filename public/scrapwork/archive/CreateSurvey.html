@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<link rel="stylesheet" type="text/css" href="Stylesheet.css">
+<p><b>Create Survey</b></p>
+</head>
+
+<!--set up player-->
+<body>
+<div id="body">
+<script>
+   var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    var startTime = 120; 
+    var endTime = 1350; 
+    videoId: 'o1dBg__wsuo#t=20'; 
+
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+        width: '320', 
+        events: {
+          'onReady': startPlayer 
+        }
+      });
+    }
+ 
+    function startPlayer() { 
+        var video_startTime = startTime;
+        var video_endTime = endTime;
+        var videoId= 'o1dBg__wsuo#t=20';
+        player.loadVideoById({'videoId': videoId, 'startSeconds': video_startTime, 'endSeconds': video_endTime});
+	
+	// set start time values	
+        var sTime = document.question.startTime_tb;
+	var Sseconds = Math.floor((startTime%60)*10)/10;
+  	var Sminutes = Math.floor(startTime/60);
+	var Shours   = Math.floor(startTime/3600);
+
+	//double digits for hours/minutes/seconds  
+	if (Shours < 10) {
+		Shours = "0" + Shours;
+	}
+	if (Sminutes < 10) {
+		Sminutes = "0" + Sminutes;
+	}
+	if (Sseconds < 10) {
+		Sseconds = "0" + Sseconds;
+	}
+	sTime.value = Shours + ":" + Sminutes + ":" + Sseconds;
+
+	// set end time values
+        var eTime = document.question.endTime_tb;
+  	var Eseconds = Math.floor((endTime%60)*10)/10;
+  	var Eminutes = Math.floor(endTime/60);
+	var Ehours   = Math.floor(endTime/3600);
+
+	//double digits for hours/minutes/seconds  
+	if (Ehours < 10) {
+		Ehours = "0" + Ehours;
+	}
+	if (Eminutes < 10) {
+		Eminutes = "0" + Eminutes;
+	}
+	if (Eseconds < 10) {
+		Eseconds = "0" + Eseconds;
+	}
+	eTime.value = Ehours + ":" + Eminutes + ":" + Eseconds;
+    }
+</script>
+
+<!--append comments-->
+<form name="comment_div">
+<div id="player">
+</div>
+</form>
+</div>
+
+<!--choose video for left/right/top/bottom/all-->
+<div id="Comment_div">
+<div id="chooseVideo" value="hi">
+<form id="Survey_five_videos">
+<input type="button" class="video" id="video 1" onclick="player.loadVideoById({'videoId': 'CCLxso5XDN4', 'startSeconds': '113', 'endSeconds': '124'}); newVideo();return false;">
+<input type="button" class="video" id="video 2" onclick="player.loadVideoById({'videoId': 'TCOCowngD5s', 'startSeconds': '63', 'endSeconds': '75'}); newVideo();return false;">
+<input type="button" class="video" id="video 3" onclick="player.loadVideoById({'videoId': 'CCLxso5XDN4', 'startSeconds': '183', 'endSeconds': '196'}); newVideo();return false;">
+<input type="button" class="video" id="video 4" onclick="player.loadVideoById({'videoId': 'TCOCowngD5s', 'startSeconds': '302', 'endSeconds': '321'}); newVideo();return false;">
+<input type="button" class="video" id="video 5" onclick="player.loadVideoById({'videoId': 'CCLxso5XDN4', 'startSeconds': '210', 'endSeconds': '220'}); newVideo();return false;">
+</form>
+</div>
+
+<script>
+function setStartTime() { 
+   var num = player.getCurrentTime();
+   var seconds = Math.floor((num%60)*10)/10;
+   var minutes = Math.floor(num/60);
+   var hours   = Math.floor(num/3600);
+   var sTime;
+   if (hours < 10) {
+	hours = "0" + hours;
+   }
+   if (minutes < 10) {
+	minutes = "0" + minutes;
+   }
+   if (seconds < 10) {
+	seconds = "0" + seconds;
+   }
+   sTime = hours + ":" + minutes + ":" + seconds;
+
+   startTime = sTime;
+   document.question.startTime_tb.value = sTime; 
+   startTime.value = document.question.startTime_tb.value;
+}
+
+function setEndTime() { 
+  var num = player.getCurrentTime();
+  var seconds = Math.floor((num%60)*10)/10;
+  var minutes = Math.floor(num/60);  
+  var hours   = Math.floor(num/3600);
+  var sTime;
+  if (hours < 10) {
+	hours = "0" + hours;
+  }
+  if (minutes < 10) {
+	minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+	seconds = "0" + seconds;
+  }
+  eTime = hours + ":" + minutes + ":" + seconds;
+
+  endTime = eTime;
+  document.question.endTime_tb.value = eTime; 
+  endTime.value = document.question.endTime_tb.value;
+}
+function seekTo() {
+  var seekTime = document.question.seekToTime.value;
+  var a = seekTime.split(':');
+  var time = (+a[0]) * 3600 + (+a[1]) * 60 + (+a[2]); 
+  player.seekTo(time, true); 
+} 
+
+// ENTER 
+function enter_Seek(e) {  //disable submit button!!
+  if (e.keyCode == 13){
+    document.getElementById('seek').click();
+  }
+}
+
+function enter_Comment(e) {
+    document.getElementById('CS_comment').click();
+    enter_Time();
+} 
+
+function enter_Time() {
+  startTime = document.question.startTime_tb.value;
+  startTime.value = document.question.startTime_tb.value;
+  endTime = document.question.endTime_tb.value;
+  endTime.value = document.question.endTime_tb.value;
+}
+</script>
+<br>
+<div id="set"> 
+<form name="question">
+<input type="button" id="seek" value="Seek to:" onclick="seekTo();return false;">
+<input type="text" id="seekToTime" onkeypress="enter_Seek(event);" value="hh:mm:ss" onfocus="this.value= ''">
+<input type="button" id="start" value="Video start time:" onclick="setStartTime();return false;">
+<input type="text" id="startTime_tb" onkeypress="enter_Time();">
+<input type="button" id="end" value="Video end time:" onclick="setEndTime();return false;">
+<input type="text" id="endTime_tb" onkeypress="enter_Time();"><br> 
+Please add a prompt in the below textbox. You can select a start and stop <br> time for the video by clicking on the respective buttons above. <br>
+<textarea id="CS_comment" onkeypress="enter_Comment(event);" value=""></textarea> 
+<br><br>
+<input type="submit" id="CS_submit" value="Submit survey!" onclick="submitAll();return false;"><br><br>
+</form>
+</div>
+</div>
+
+<script>
+function submitAll() {
+  var myWindow = window.open("","","width=350,height=400");
+  var s = document.getElementById("CS_comment").value + "<br>" + 
+  document.question.startTime_tb.value + "<br>" + 
+  document.question.endTime_tb.value;
+  var c = s; 
+  myWindow.document.write(c);
+}
+function newVideo() {
+   var myDiv = document.getElementById("submittedComments");
+   setStartTime();
+   //change video name for comments
+   //set end time
+   myDiv.scrollTop = myDiv.scrollHeight; 
+}
+</script>
+</body>
+</html>
